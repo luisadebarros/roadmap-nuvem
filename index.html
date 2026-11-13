@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roadmaps de Nuvem</title>
+<meta name="description" content="Roadmap interativo de estudos de nuvem: Microsoft Learn (AZ-900 → AI-200) e AWS (Cloud Practitioner → Developer Associate).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-32 -32 64 64'%3E%3Cg fill='%23CB7885' stroke='%23893941'%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z'/%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z' transform='rotate(72)'/%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z' transform='rotate(144)'/%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z' transform='rotate(216)'/%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z' transform='rotate(288)'/%3E%3C/g%3E%3Ccircle r='6' fill='%23D4D994' stroke='%235E6623'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Paleta "lírio": vinho #893941, rosa #CB7885, lima #D4D994, oliva #5E6623 sobre cinza-pérola */
+:root{
+  --bg:#f3f2ef; --surface:#ffffff; --surface-2:#f7eef0; --ink:#3a1c20; --muted:#7d5a5f; --line:#ead6da;
+  --wine:#893941; --rose:#CB7885; --rose-soft:#f5e1e5; --lime:#D4D994; --lime-soft:#f1f3dc; --olive:#5E6623;
+  --road:#ebe4dc; --on-wine:#ffffff; --shadow:0 18px 40px -22px rgba(137,57,65,.45);
+  --f-display:'Instrument Serif',Georgia,serif; --f-body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'DM Mono',ui-monospace,Menlo,monospace; color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1b1315; --surface:#261a1d; --surface-2:#30212a; --ink:#f6e8ea; --muted:#c9a9ae; --line:#45303a;
+  --wine:#e59aa6; --rose:#CB7885; --rose-soft:#3a2328; --lime:#D4D994; --lime-soft:#2c2f1c; --olive:#c3cb7a;
+  --road:#33252a; --on-wine:#2a1216; --shadow:0 18px 40px -22px rgba(0,0,0,.8); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1b1315; --surface:#261a1d; --surface-2:#30212a; --ink:#f6e8ea; --muted:#c9a9ae; --line:#45303a;
+  --wine:#e59aa6; --rose:#CB7885; --rose-soft:#3a2328; --lime:#D4D994; --lime-soft:#2c2f1c; --olive:#c3cb7a;
+  --road:#33252a; --on-wine:#2a1216; --shadow:0 18px 40px -22px rgba(0,0,0,.8); color-scheme:dark }
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;
+  background-image:radial-gradient(circle at 8% 4%,color-mix(in srgb,var(--rose) 18%,transparent),transparent 38%),
+                   radial-gradient(circle at 94% 26%,color-mix(in srgb,var(--lime) 30%,transparent),transparent 40%);
+  background-attachment:fixed}
+a{color:inherit}
+.wrap{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:44px 20px 80px}
+.sky{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.petal{position:absolute;width:var(--s);height:calc(var(--s)*1.6);background:var(--c);border-radius:50% 50% 50% 50%/70% 70% 30% 30%;opacity:.35;animation:drift var(--d) ease-in-out infinite;animation-delay:var(--dl)}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-14px) rotate(calc(var(--r) + 25deg))}}
+
+/* Hero */
+.hero{display:grid;gap:22px;justify-items:center;text-align:center;margin-bottom:40px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--wine);margin:0}
+.eyebrow .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--lime);margin:0 8px;vertical-align:1px;box-shadow:0 0 0 2px var(--olive)}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(42px,7.5vw,78px);line-height:.98;margin:6px 0 0;letter-spacing:-.01em;text-wrap:balance}
+h1 em{color:var(--wine);font-style:italic}
+.lily-hero{width:64px;height:64px;margin:0 auto -6px;display:block}
+.tabs{display:inline-flex;gap:4px;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow)}
+.tabs button{font:500 14px/1 var(--f-body);color:var(--muted);background:transparent;border:0;border-radius:999px;padding:11px 20px;cursor:pointer;transition:background .25s,color .25s}
+.tabs button:hover{color:var(--wine)}
+.tabs button[aria-selected="true"]{background:var(--wine);color:var(--on-wine)}
+.lede{max-width:56ch;margin:0;color:var(--muted);font-size:16px}
+.stats{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:10px 26px 10px 10px;box-shadow:var(--shadow)}
+.ring{width:62px;height:62px;flex:none}
+.ring circle{fill:none;stroke-width:7}
+.ring .bgc{stroke:var(--lime-soft)}
+.ring .fg{stroke:url(#grad);stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.3,1.4,.5,1);transform:rotate(-90deg);transform-origin:50% 50%}
+.stats-txt{text-align:left;display:grid}
+.stats-txt strong{font-family:var(--f-display);font-size:34px;line-height:1;font-weight:400;font-variant-numeric:tabular-nums}
+.stats-txt span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.map{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:860px}
+.map button{font:500 13px/1 var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 12px 7px 7px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;transition:transform .2s,border-color .2s}
+.map button:hover{transform:translateY(-2px);border-color:var(--rose)}
+.map button .n{font:500 11px/1 var(--f-mono);background:var(--rose-soft);color:var(--wine);border-radius:999px;padding:4px 6px}
+.map button.done .n{background:var(--olive);color:var(--lime)}
+.map-part{flex-basis:100%;margin:8px 0 0;font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+button:focus-visible,a:focus-visible,.item input:focus-visible+.box{outline:2.5px solid var(--olive);outline-offset:2px}
+
+/* Painel geral */
+.general{max-width:900px;margin:0 auto 46px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:20px 22px 22px;box-shadow:var(--shadow)}
+.general h2{font:400 26px/1.1 var(--f-display);margin:0 0 4px}
+.general p.sub{margin:0 0 14px;color:var(--muted);font-size:14px}
+.tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.tool a{display:grid;gap:3px;height:100%;padding:12px 14px;border-radius:16px;background:var(--lime-soft);text-decoration:none;border:1px solid transparent;transition:transform .2s,border-color .2s}
+.tool a:hover{transform:translateY(-2px);border-color:var(--olive)}
+.tool b{font-weight:700;color:var(--ink)}
+.tool b::after{content:" ↗";color:var(--olive);font-weight:500}
+.tool span{font-size:13px;color:var(--muted)}
+
+/* Estrada */
+.route{position:relative}
+.road{position:absolute;top:0;bottom:0;left:50%;width:16px;transform:translateX(-50%);border-radius:999px;background:var(--road)}
+.road::after{content:"";position:absolute;left:50%;top:10px;bottom:10px;width:2px;transform:translateX(-50%);
+  background:repeating-linear-gradient(to bottom,var(--surface) 0 8px,transparent 8px 20px)}
+.road-fill{position:absolute;left:0;right:0;top:0;height:0;border-radius:999px;background:linear-gradient(to bottom,var(--rose),var(--wine));transition:height 1s cubic-bezier(.3,1,.4,1)}
+.marker{position:absolute;left:50%;top:0;width:48px;height:48px;transform:translate(-50%,-50%);transition:top 1s cubic-bezier(.3,1,.4,1);z-index:3;pointer-events:none}
+.marker svg{width:100%;height:100%;animation:spin 9s linear infinite;filter:drop-shadow(0 6px 10px color-mix(in srgb,var(--wine) 40%,transparent))}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.stops{list-style:none;margin:0;padding:0;display:grid;gap:34px}
+.stop{display:grid;grid-template-columns:1fr 76px 1fr;align-items:start;animation:rise .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*70ms)}
+@keyframes rise{from{opacity:.2;transform:translateY(16px)}}
+.pin{grid-column:2;grid-row:1;justify-self:center;margin-top:18px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:var(--surface);border:2px solid var(--rose);font:500 13px/1 var(--f-mono);color:var(--wine);position:relative;z-index:2;transition:background .3s,color .3s}
+.stop.done .pin{background:var(--olive);border-color:var(--olive);color:var(--lime)}
+.stop.current .pin::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--rose);animation:ping 1.8s ease-out infinite}
+@keyframes ping{from{transform:scale(.8);opacity:.9}to{transform:scale(1.35);opacity:0}}
+.stop.left .card{grid-column:1;grid-row:1}
+.stop.right .card{grid-column:3;grid-row:1}
+.stop.wide .pin{margin-top:0}
+.stop.wide .card{grid-column:1/-1;grid-row:2;margin-top:14px}
+
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:20px 22px 22px;box-shadow:var(--shadow);min-width:0;transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--rose) 55%,var(--line))}
+.card-head{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;margin-bottom:12px}
+.card h2{font:400 28px/1.05 var(--f-display);margin:0;text-wrap:balance}
+.card .blurb{grid-column:1/-1;margin:0;color:var(--muted);font-size:14px}
+.count{font:500 12px/1 var(--f-mono);color:var(--wine);background:var(--rose-soft);padding:6px 9px;border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar{grid-column:1/-1;height:5px;border-radius:999px;background:var(--lime-soft);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--wine));border-radius:inherit;transition:width .6s cubic-bezier(.3,1.3,.5,1)}
+.ribbon{position:absolute;top:-12px;right:16px;font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;background:var(--lime);color:#3c4214;padding:7px 11px;border-radius:999px;transform:scale(0) rotate(-8deg);transition:transform .45s cubic-bezier(.3,1.8,.5,1)}
+.stop.done .ribbon{transform:scale(1) rotate(4deg)}
+
+.groups.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px 24px}
+.group+.group{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)}
+.groups.cols>.group+.group{margin-top:0;padding-top:0;border-top:0}
+.glabel{font:500 11px/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.item{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:12px;cursor:pointer;transition:background .2s}
+.item:hover{background:var(--rose-soft)}
+.item input{position:absolute;opacity:0;width:1px;height:1px}
+.box{flex:none;width:20px;height:20px;margin-top:2px;border-radius:7px;border:1.5px solid var(--rose);background:var(--surface);display:grid;place-items:center;transition:all .25s cubic-bezier(.3,1.6,.5,1)}
+.box::after{content:"";width:9px;height:5px;border-left:2.5px solid var(--on-wine);border-bottom:2.5px solid var(--on-wine);transform:rotate(-45deg) scale(0);margin-top:-2px;transition:transform .25s cubic-bezier(.3,1.8,.5,1)}
+.item input:checked+.box{background:var(--wine);border-color:var(--wine);transform:rotate(-8deg)}
+.item input:checked+.box::after{transform:rotate(-45deg) scale(1)}
+.txt{min-width:0;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.txt a{font-weight:500;text-decoration:none;color:var(--ink);background-image:linear-gradient(var(--rose),var(--rose));background-size:100% 1px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .25s,color .2s;overflow-wrap:anywhere}
+.txt a::after{content:" ↗";color:var(--wine);font-size:12px}
+.txt a:hover{color:var(--wine);background-size:100% 2px}
+.item input:checked~.txt a{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--rose);text-decoration-thickness:2px}
+.kind{font:500 10px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 6px;border-radius:6px;background:var(--lime-soft);color:var(--olive);white-space:nowrap}
+.kind.cert{background:var(--wine);color:var(--on-wine)}
+.kind.docs{background:var(--rose-soft);color:var(--wine)}
+.note{flex-basis:100%;font-size:12.5px;color:var(--muted)}
+
+/* Certificação da parada */
+.certbox{margin-top:16px;padding:14px 16px;border-radius:18px;background:var(--lime-soft);border:1px solid color-mix(in srgb,var(--olive) 30%,transparent);display:grid;gap:8px}
+.certbox .top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.code{font:500 13px/1 var(--f-mono);background:var(--olive);color:var(--lime);padding:6px 9px;border-radius:8px}
+.certbox strong{font:400 21px/1.1 var(--f-display)}
+.certbox p{margin:0;font-size:13px;color:var(--muted)}
+.certlinks{display:flex;flex-wrap:wrap;gap:6px}
+.certlinks a{font:500 12.5px/1 var(--f-body);text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 11px;transition:border-color .2s}
+.certlinks a::after{content:" ↗";color:var(--olive)}
+.certlinks a:hover{border-color:var(--olive)}
+
+/* Marcos */
+.milestone{list-style:none;display:grid;justify-items:center;text-align:center;gap:6px;position:relative;z-index:2;padding-block:18px;animation:rise .7s both}
+.milestone h3{font:italic 400 34px/1 var(--f-display);margin:0;color:var(--wine);background:var(--bg);padding:2px 14px;border-radius:12px}
+.ms-sub{margin:0;font-size:13px;color:var(--muted);background:var(--bg);padding:2px 10px;border-radius:8px}
+.bloom{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px dashed var(--line);box-shadow:var(--shadow);transition:all .5s}
+.bloom svg{width:62px;height:62px;filter:grayscale(1) opacity(.45);transition:filter .6s}
+.milestone.got .bloom{border:2px solid var(--olive);animation:glow 2.6s ease-in-out infinite}
+.milestone.got .bloom svg{filter:none}
+@keyframes glow{50%{box-shadow:0 0 0 10px color-mix(in srgb,var(--lime) 40%,transparent),var(--shadow);transform:scale(1.04)}}
+
+.finish{display:grid;justify-items:center;gap:6px;margin-top:40px;text-align:center;position:relative;z-index:2}
+.finish svg{width:80px;height:80px}
+.finish p{margin:0}
+.finish .big{font:italic 400 40px/1 var(--f-display);color:var(--wine)}
+.finish .sub{color:var(--muted);font-size:14px}
+.foot{max-width:640px;margin:34px auto 0;text-align:center;font-size:12.5px;color:var(--muted)}
+
+.spark{position:fixed;pointer-events:none;z-index:50;font-size:var(--fs);color:var(--c);animation:burst .9s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes burst{from{transform:translate(-50%,-50%) scale(.3);opacity:1}to{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1) rotate(var(--r));opacity:0}}
+
+@media (max-width:760px){
+  .wrap{padding-inline:16px}
+  .road,.marker{left:22px}
+  .stop{grid-template-columns:44px 1fr;column-gap:10px}
+  .pin{grid-column:1;width:38px;height:38px;margin-top:16px;justify-self:start;margin-left:3px}
+  .stop.left .card,.stop.right .card,.stop.wide .card{grid-column:2;grid-row:1;margin-top:0}
+  .stop.wide .pin{margin-top:16px}
+  .milestone{justify-items:start;text-align:left}
+  .milestone .bloom{width:50px;height:50px}.milestone .bloom svg{width:32px;height:32px}
+  .milestone h3{font-size:26px}
+  .card{padding:18px 14px}
+  .card h2{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#CB7885"/><stop offset="1" stop-color="#893941"/></linearGradient>
+    <symbol id="lily" viewBox="0 0 64 64">
+      <g transform="translate(32 32)">
+        <g fill="#CB7885" stroke="#893941" stroke-width="1.2">
+          <path d="M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z"/>
+          <path d="M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z" transform="rotate(72)"/>
+          <path d="M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z" transform="rotate(144)"/>
+          <path d="M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z" transform="rotate(216)"/>
+          <path d="M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z" transform="rotate(288)"/>
+        </g>
+        <g fill="none" stroke="#893941" stroke-width="1" opacity=".55">
+          <path d="M0-6V-18"/><path d="M0-6V-18" transform="rotate(72)"/><path d="M0-6V-18" transform="rotate(144)"/><path d="M0-6V-18" transform="rotate(216)"/><path d="M0-6V-18" transform="rotate(288)"/>
+        </g>
+        <circle r="5.5" fill="#D4D994" stroke="#5E6623" stroke-width="1.4"/>
+        <g fill="#5E6623"><circle cx="0" cy="-10" r="1.6"/><circle cx="9" cy="-4" r="1.6"/><circle cx="6" cy="8" r="1.6"/><circle cx="-6" cy="8" r="1.6"/><circle cx="-9" cy="-4" r="1.6"/></g>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="sky" id="sky" aria-hidden="true"></div>
+<main class="wrap" id="panel">
+  <header class="hero">
+    <div>
+      <svg class="lily-hero" aria-hidden="true"><use href="#lily"/></svg>
+      <p class="eyebrow">Trilha de estudos <span class="dot"></span> nov/2026</p>
+      <h1 id="h1"></h1>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Escolha o roadmap"><button type="button" role="tab" data-tab="ms" aria-controls="panel">Microsoft Learn</button><button type="button" role="tab" data-tab="aws" aria-controls="panel">AWS</button></div>
+    <p class="lede" id="lede"></p>
+    <div class="stats">
+      <svg class="ring" viewBox="0 0 62 62" aria-hidden="true">
+        <circle class="bgc" cx="31" cy="31" r="26"/>
+        <circle class="fg" id="ring" cx="31" cy="31" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4"/>
+      </svg>
+      <div class="stats-txt"><strong id="pct">0%</strong><span id="statSub">0 de 0 itens</span></div>
+    </div>
+    <nav class="map" id="map" aria-label="Paradas do roadmap"></nav>
+  </header>
+
+  <section class="general" aria-labelledby="g-title">
+    <h2 id="g-title"></h2>
+    <p class="sub">Páginas que valem deixar nos favoritos durante todo o roadmap.</p>
+    <ul class="tools" id="tools"></ul>
+  </section>
+
+  <div class="route" id="route">
+    <div class="road" aria-hidden="true"><div class="road-fill" id="fill"></div></div>
+    <div class="marker" id="marker" aria-hidden="true"><svg><use href="#lily"/></svg></div>
+    <ol class="stops" id="stops"></ol>
+  </div>
+
+  <footer class="finish">
+    <svg aria-hidden="true"><use href="#lily"/></svg>
+    <p class="big" id="finishBig"></p>
+    <p class="sub" id="finishSub"></p>
+  </footer>
+  <p class="foot" id="foot">Em 2026 a Microsoft trocou várias provas: AZ-204 → AI-200, AI-102 → AI-103, AI-900 → AI-901. Antes de agendar, confira a página da certificação: os conteúdos do Learn mudam com frequência.</p>
+</main>
+
+<script>
+const MS=(()=>{
+/* ===== Conteúdo — editar aqui =====
+   k: trilha | modulo | docs | video | pratica | cert   */
+const L='https://learn.microsoft.com/pt-br';
+const TOOLS=[
+  {t:'Catálogo de treinamentos',d:'Busque trilhas e módulos por tema, nível e cargo.',url:L+'/training/browse/'},
+  {t:'Todas as credenciais',d:'Certificações e Applied Skills num lugar só.',url:L+'/credentials/browse/'},
+  {t:'Avaliações práticas',d:'Simulados gratuitos das provas.',url:L+'/credentials/certifications/practice-assessments-for-microsoft-certifications'},
+  {t:'Sandbox da prova',d:'Teste a interface do exame antes do dia.',url:'https://aka.ms/examdemo'},
+  {t:'Renovar certificação',d:'A renovação anual é gratuita e feita online.',url:L+'/credentials/certifications/renew-your-microsoft-certification'},
+  {t:'Shows do Learn',d:'Vídeos e séries curtas sobre .NET e Azure.',url:L+'/shows/'},
+];
+
+const STOPS=[
+  { id:'az900', title:'Fundamentos de nuvem', blurb:'A base de Azure. Rápida pra quem já usa GCP: é mais vocabulário que conceito novo.',
+    groups:[{ label:'Trilhas', items:[
+      {t:'Descrever os conceitos de nuvem',k:'trilha',url:L+'/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/'},
+      {t:'Descrever a arquitetura e os serviços do Azure',k:'trilha',url:L+'/training/paths/azure-fundamentals-describe-azure-architecture-services/'},
+      {t:'Descrever o gerenciamento e a governança do Azure',k:'trilha',url:L+'/training/paths/describe-azure-management-governance/'},
+    ]}],
+    cert:{code:'AZ-900',name:'Azure Fundamentals',note:'Primeira certificação, boa pra ganhar ritmo.',links:[
+      {t:'Página da certificação',url:L+'/credentials/certifications/azure-fundamentals/'},
+      {t:'Página da prova',url:L+'/credentials/certifications/exams/az-900/'} ]} },
+
+  { id:'copilot', title:'GitHub Copilot', blurb:'Produtividade imediata no trabalho novo.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Trilha GitHub Copilot Fundamentals',k:'trilha',url:L+'/training/paths/copilot/'},
+      {t:'Documentação do GitHub Copilot',k:'docs',url:'https://docs.github.com/pt/copilot'},
+    ]}],
+    cert:{code:'GH-300',name:'GitHub Copilot',note:'Opcional, mas rápida e muito valorizada hoje.',links:[
+      {t:'Página da certificação',url:L+'/credentials/certifications/github-copilot/'} ]} },
+
+  { id:'dotnet', title:'.NET e C#', blurb:'Formalizar o que você já faz e subir o nível pra pleno.', wide:true, cols:true,
+    groups:[
+      { label:'APIs e microsserviços', items:[
+        {t:'Criar uma API Web com controllers do ASP.NET Core',k:'modulo',url:L+'/training/modules/build-web-api-aspnet-core/'},
+        {t:'Criar apps e serviços nativos de nuvem com .NET e ASP.NET Core',k:'trilha',url:L+'/training/paths/create-microservices-with-dotnet/'},
+        {t:'.NET Aspire para iniciantes',k:'video',url:L+'/shows/dotnet-aspire-for-beginners/'},
+        {t:'Persistir dados com Entity Framework Core',k:'modulo',url:L+'/training/modules/persist-data-ef-core/'},
+      ]},
+      { label:'Qualidade', items:[
+        {t:'Testes de unidade em C# com xUnit',k:'docs',url:L+'/dotnet/core/testing/unit-testing-csharp-with-xunit'},
+        {t:'Testes de integração no ASP.NET Core',k:'docs',url:L+'/aspnet/core/test/integration-tests'},
+        {t:'Programação assíncrona com async e await',k:'docs',url:L+'/dotnet/csharp/asynchronous-programming/'},
+        {t:'Foundational C# with Microsoft',k:'pratica',url:'https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/',note:'Certificação gratuita do freeCodeCamp com a Microsoft. Opcional.'},
+      ]} ]},
+
+  { id:'dados', title:'Dados', blurb:'SQL que você já domina e os bancos que caem na AI-200.', wide:true, cols:true,
+    groups:[
+      { label:'Relacional', items:[
+        {t:'Introdução a consultas com Transact-SQL',k:'trilha',url:L+'/training/paths/get-started-querying-with-transact-sql/'},
+        {t:'Fundamentos do Azure SQL',k:'trilha',url:L+'/training/paths/azure-sql-fundamentals/'},
+        {t:'Azure Database for PostgreSQL + pgvector',k:'docs',url:L+'/azure/postgresql/flexible-server/how-to-use-pgvector'},
+      ]},
+      { label:'NoSQL e cache', items:[
+        {t:'Azure Cosmos DB for NoSQL',k:'docs',url:L+'/azure/cosmos-db/nosql/'},
+        {t:'Busca vetorial no Cosmos DB',k:'docs',url:L+'/azure/cosmos-db/nosql/vector-search'},
+        {t:'Azure Managed Redis',k:'docs',url:L+'/azure/redis/overview'},
+      ]} ],
+    cert:{code:'DP-900',name:'Azure Data Fundamentals',note:'Opcional: visão geral de dados no Azure.',links:[
+      {t:'Página da certificação',url:L+'/credentials/certifications/azure-data-fundamentals/'} ]} },
+
+  { id:'containers', title:'Containers no Azure', blurb:'Domínio 1 da AI-200 (20–25%). Ponte direta com o que você faz no GKE.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Introdução aos contêineres do Docker',k:'modulo',url:L+'/training/modules/intro-to-docker-containers/'},
+      {t:'Azure Container Registry',k:'docs',url:L+'/azure/container-registry/'},
+      {t:'ACR Tasks',k:'docs',url:L+'/azure/container-registry/container-registry-tasks-overview'},
+      {t:'Container personalizado no App Service',k:'docs',url:L+'/azure/app-service/quickstart-custom-container'},
+      {t:'Azure Container Apps',k:'docs',url:L+'/azure/container-apps/overview'},
+      {t:'Escala com KEDA no Container Apps',k:'docs',url:L+'/azure/container-apps/scale-app'},
+      {t:'Azure Kubernetes Service (AKS)',k:'docs',url:L+'/azure/aks/'},
+    ]}]},
+
+  { id:'serverless', title:'Serverless e mensageria', blurb:'Domínio 3 da AI-200 (20–25%). Functions, filas e eventos.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Visão geral do Azure Functions',k:'docs',url:L+'/azure/azure-functions/functions-overview'},
+      {t:'Gatilhos e associações (triggers e bindings)',k:'docs',url:L+'/azure/azure-functions/functions-triggers-bindings'},
+      {t:'Azure Service Bus: filas, tópicos e assinaturas',k:'docs',url:L+'/azure/service-bus-messaging/service-bus-queues-topics-subscriptions'},
+      {t:'Filas de mensagens mortas (DLQ)',k:'docs',url:L+'/azure/service-bus-messaging/service-bus-dead-letter-queues'},
+      {t:'Azure Event Grid',k:'docs',url:L+'/azure/event-grid/overview'},
+      {t:'Filtros de eventos no Event Grid',k:'docs',url:L+'/azure/event-grid/event-filtering'},
+    ]}]},
+
+  { id:'seguranca', title:'Segurança e observabilidade', blurb:'Domínio 4 da AI-200 (20–25%). Segredos, configuração, traces e logs.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Azure Key Vault',k:'docs',url:L+'/azure/key-vault/general/overview'},
+      {t:'Rotação de segredos no Key Vault',k:'docs',url:L+'/azure/key-vault/secrets/tutorial-rotation'},
+      {t:'Azure App Configuration',k:'docs',url:L+'/azure/azure-app-configuration/overview'},
+      {t:'Identidades gerenciadas',k:'docs',url:L+'/entra/identity/managed-identities-azure-resources/overview'},
+      {t:'OpenTelemetry no Azure Monitor',k:'docs',url:L+'/azure/azure-monitor/app/opentelemetry-enable'},
+      {t:'Escrever a primeira consulta em KQL',k:'modulo',url:L+'/training/modules/write-first-query-kusto-query-language/'},
+      {t:'MSAL e a plataforma de identidade',k:'docs',url:L+'/entra/identity-platform/msal-overview',note:'Combina com o microsserviço de login que você já mantém.'},
+    ]}]},
+
+  { milestone:true, id:'m-ai200', title:'Dev Azure', next:'Hora de agendar a AI-200',
+    cert:{code:'AI-200',name:'Azure AI Cloud Developer Associate',links:[
+      {t:'Página da certificação',url:L+'/credentials/certifications/azure-ai-cloud-developer-associate/'},
+      {t:'Guia de estudo',url:L+'/credentials/certifications/resources/study-guides/ai-200'},
+      {t:'Avaliação prática',url:'https://aka.ms/AI200-PA'},
+      {t:'Vídeo Exam Prep',url:'https://aka.ms/AI200-ExamPrep'} ]} },
+
+  { id:'ia', title:'Inteligência Artificial', blurb:'Do básico de IA até integrar LLMs nas suas APIs .NET e Python.',
+    groups:[{ label:'Estudo', items:[
+      {t:'IA para desenvolvedores .NET',k:'docs',url:L+'/dotnet/ai/'},
+      {t:'Microsoft Foundry (Azure AI Foundry)',k:'docs',url:L+'/azure/ai-foundry/'},
+      {t:'RAG: geração aumentada por recuperação',k:'docs',url:L+'/azure/search/retrieval-augmented-generation-overview'},
+      {t:'Trilhas de IA no catálogo',k:'trilha',url:L+'/training/browse/?terms=azure%20ai%20foundry',note:'Filtre por "Desenvolvedor" e nível "Intermediário".'},
+    ]}],
+    cert:{code:'AI-901',name:'Azure AI Fundamentals',note:'Substituiu a prova AI-900. Depois dela, a próxima é a AI-103 (sucessora da AI-102).',links:[
+      {t:'Página da certificação',url:L+'/credentials/certifications/azure-ai-fundamentals/'},
+      {t:'Página da prova AI-901',url:L+'/credentials/certifications/exams/ai-901/'},
+      {t:'Buscar AI-103',url:L+'/credentials/browse/?terms=AI-103'} ]} },
+
+  { id:'devops', title:'DevOps e infraestrutura', blurb:'Você já ajudou com CI/CD. Aqui é formalizar e ir além.', wide:true, cols:true,
+    groups:[
+      { label:'CI/CD', items:[
+        {t:'Azure Pipelines',k:'docs',url:L+'/azure/devops/pipelines/'},
+        {t:'Referência do YAML de pipelines',k:'docs',url:L+'/azure/devops/pipelines/yaml-schema/'},
+        {t:'Automatizar fluxos com GitHub Actions',k:'trilha',url:L+'/training/paths/automate-workflow-github-actions/'},
+      ]},
+      { label:'Infraestrutura como código', items:[
+        {t:'Fundamentos do Bicep',k:'trilha',url:L+'/training/paths/fundamentals-bicep/'},
+        {t:'Introdução ao Kubernetes no Azure',k:'trilha',url:L+'/training/paths/intro-to-kubernetes-on-azure/'},
+      ]} ],
+    cert:{code:'AZ-400',name:'DevOps Engineer Expert',note:'Meta de médio prazo. Exige uma associate antes; confira os pré-requisitos atuais. GH-900 é uma boa entrada.',links:[
+      {t:'AZ-400',url:L+'/credentials/certifications/devops-engineer/'},
+      {t:'GH-900 GitHub Foundations',url:L+'/credentials/certifications/github-foundations/'} ]} },
+
+  { id:'extras', title:'Front, Python e identidade', blurb:'Complementos do seu lado full stack.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Criar aplicativos JavaScript com TypeScript',k:'trilha',url:L+'/training/paths/build-javascript-applications-typescript/'},
+      {t:'FastAPI no Azure App Service',k:'docs',url:L+'/azure/app-service/quickstart-python?tabs=fastapi'},
+      {t:'Python no Azure',k:'docs',url:L+'/azure/developer/python/'},
+    ]}],
+    cert:{code:'SC-900',name:'Security, Compliance and Identity Fundamentals',note:'Entra ID, OAuth e Zero Trust.',links:[
+      {t:'Página da certificação',url:L+'/credentials/certifications/security-compliance-and-identity-fundamentals/'} ]} },
+];
+
+
+return {TOOLS,STOPS};})();
+const AWS=(()=>{
+/* ===== Conteúdo — editar aqui =====
+   k: trilha | modulo | docs | video | pratica | cert   */
+const D='https://docs.aws.amazon.com/pt_br';
+const SB='https://skillbuilder.aws/';
+const TOOLS=[
+  {t:'AWS Skill Builder',d:'Cursos gratuitos, planos de aprendizagem e simulados oficiais.',url:SB},
+  {t:'AWS Builder Center',d:'Artigos da comunidade e badges.',url:'https://builder.aws.com/'},
+  {t:'AWS Workshops',d:'Labs guiados passo a passo, direto no console.',url:'https://workshops.aws/'},
+  {t:'Certificações AWS',d:'Todas as provas, guias de exame e agendamento.',url:'https://aws.amazon.com/pt/certification/'},
+  {t:'Nível gratuito',d:'Pra praticar sem gastar. Configure um alerta de orçamento.',url:'https://aws.amazon.com/pt/free/'},
+  {t:'Serverless Land',d:'Padrões e exemplos prontos de arquitetura serverless.',url:'https://serverlessland.com/'},
+];
+
+const STOPS=[
+  { id:'fundamentos', title:'Fundamentos de nuvem AWS', blurb:'Vocabulário da AWS. Você já conhece nuvem pelo GCP e Azure, então é mais tradução que conceito novo.',
+    groups:[{ label:'Estudo', items:[
+      {t:'AWS Cloud Practitioner Essentials',k:'trilha',url:SB,note:'Curso oficial gratuito. Busque o nome no Skill Builder.'},
+      {t:'Infraestrutura global: regiões e zonas de disponibilidade',k:'docs',url:'https://aws.amazon.com/pt/about-aws/global-infrastructure/'},
+      {t:'AWS Well-Architected Framework',k:'docs',url:D+'/wellarchitected/latest/framework/welcome.html'},
+      {t:'Calculadora de preços',k:'pratica',url:'https://calculator.aws/'},
+      {t:'Tabela de serviços equivalentes AWS × Azure × GCP',k:'docs',url:'https://cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison'},
+    ]}],
+    cert:{code:'CLF-C02',name:'Cloud Practitioner',note:'Primeira certificação. O guia do exame agora inclui conceitos de IA generativa.',links:[
+      {t:'Página da certificação',url:'https://aws.amazon.com/pt/certification/certified-cloud-practitioner/'} ]} },
+
+  { id:'iam', title:'IAM e segurança', blurb:'Segurança é 26% da prova de Developer. Comece por aqui.',
+    groups:[{ label:'Estudo', items:[
+      {t:'O que é o IAM',k:'docs',url:D+'/IAM/latest/UserGuide/introduction.html'},
+      {t:'Práticas recomendadas de segurança no IAM',k:'docs',url:D+'/IAM/latest/UserGuide/best-practices.html'},
+      {t:'Amazon Cognito (login e usuários)',k:'docs',url:D+'/cognito/latest/developerguide/what-is-amazon-cognito.html',note:'Equivalente ao seu microsserviço de login, só que gerenciado.'},
+      {t:'AWS Secrets Manager',k:'docs',url:D+'/secretsmanager/latest/userguide/intro.html'},
+      {t:'Parameter Store',k:'docs',url:D+'/systems-manager/latest/userguide/systems-manager-parameter-store.html'},
+      {t:'AWS KMS (chaves e criptografia)',k:'docs',url:D+'/kms/latest/developerguide/overview.html'},
+    ]}]},
+
+  { id:'sdk', title:'Código na AWS: CLI e SDKs', blurb:'Usar a AWS a partir de C# e Python, que é o seu dia a dia.', wide:true, cols:true,
+    groups:[
+      { label:'Ferramentas', items:[
+        {t:'AWS CLI',k:'docs',url:D+'/cli/latest/userguide/cli-chap-welcome.html'},
+        {t:'.NET na AWS (SDK, ferramentas e exemplos)',k:'docs',url:'https://aws.amazon.com/pt/developer/language/net/'},
+        {t:'Boto3: SDK para Python',k:'docs',url:'https://boto3.amazonaws.com/v1/documentation/api/latest/index.html'},
+      ]},
+      { label:'Lambda na sua linguagem', items:[
+        {t:'Lambda com C#',k:'docs',url:D+'/lambda/latest/dg/lambda-csharp.html'},
+        {t:'Lambda com Python',k:'docs',url:D+'/lambda/latest/dg/lambda-python.html'},
+        {t:'Powertools for AWS Lambda (.NET)',k:'docs',url:'https://docs.powertools.aws.dev/lambda/dotnet/',note:'Logs, métricas e tracing prontos.'},
+      ]} ]},
+
+  { id:'dados', title:'Dados', blurb:'Relacional que você já domina e o DynamoDB, que cai muito na prova.', wide:true, cols:true,
+    groups:[
+      { label:'Relacional e arquivos', items:[
+        {t:'Amazon RDS',k:'docs',url:D+'/AmazonRDS/latest/UserGuide/Welcome.html'},
+        {t:'Aurora PostgreSQL',k:'docs',url:D+'/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraPostgreSQL.html'},
+        {t:'Amazon S3',k:'docs',url:D+'/AmazonS3/latest/userguide/Welcome.html'},
+      ]},
+      { label:'NoSQL e cache', items:[
+        {t:'Amazon DynamoDB',k:'docs',url:D+'/amazondynamodb/latest/developerguide/Introduction.html'},
+        {t:'Boas práticas de modelagem no DynamoDB',k:'docs',url:D+'/amazondynamodb/latest/developerguide/best-practices.html'},
+        {t:'Amazon ElastiCache',k:'docs',url:D+'/AmazonElastiCache/latest/dg/WhatIs.html'},
+      ]} ]},
+
+  { id:'serverless', title:'Serverless e APIs', blurb:'O coração da prova de Developer.',
+    groups:[{ label:'Estudo', items:[
+      {t:'AWS Lambda',k:'docs',url:D+'/lambda/latest/dg/welcome.html'},
+      {t:'Amazon API Gateway',k:'docs',url:D+'/apigateway/latest/developerguide/welcome.html'},
+      {t:'AWS Step Functions',k:'docs',url:D+'/step-functions/latest/dg/welcome.html'},
+      {t:'AWS SAM',k:'docs',url:D+'/serverless-application-model/latest/developerguide/what-is-sam.html'},
+      {t:'Padrões serverless prontos',k:'pratica',url:'https://serverlessland.com/patterns'},
+    ]}]},
+
+  { id:'mensageria', title:'Mensageria e eventos', blurb:'O equivalente ao Service Bus e Pub/Sub que você já conhece.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Amazon SQS',k:'docs',url:D+'/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html'},
+      {t:'Filas de mensagens mortas (DLQ) no SQS',k:'docs',url:D+'/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html'},
+      {t:'Amazon SNS',k:'docs',url:D+'/sns/latest/dg/welcome.html'},
+      {t:'Amazon EventBridge',k:'docs',url:D+'/eventbridge/latest/userguide/eb-what-is.html'},
+      {t:'Kinesis Data Streams',k:'docs',url:D+'/streams/latest/dev/introduction.html'},
+      {t:'Amazon Data Firehose',k:'docs',url:D+'/firehose/latest/dev/what-is-this-service.html',note:'Entrou no escopo da DVA-C03.'},
+    ]}]},
+
+  { id:'containers', title:'Containers', blurb:'Novidade com mais peso na DVA-C03. Ponte direta com o seu GKE.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Amazon ECR',k:'docs',url:D+'/AmazonECR/latest/userguide/what-is-ecr.html'},
+      {t:'Amazon ECS',k:'docs',url:D+'/AmazonECS/latest/developerguide/Welcome.html'},
+      {t:'AWS Fargate',k:'docs',url:D+'/AmazonECS/latest/developerguide/AWS_Fargate.html'},
+      {t:'Amazon EKS',k:'docs',url:D+'/eks/latest/userguide/what-is-eks.html'},
+      {t:'EKS Workshop',k:'pratica',url:'https://www.eksworkshop.com/'},
+    ]}]},
+
+  { id:'deploy', title:'Deploy, IaC e observabilidade', blurb:'Testes e deploy são 22% da prova; troubleshooting, outros 22%.', wide:true, cols:true,
+    groups:[
+      { label:'CI/CD', items:[
+        {t:'AWS CodePipeline',k:'docs',url:D+'/codepipeline/latest/userguide/welcome.html'},
+        {t:'AWS CodeBuild',k:'docs',url:D+'/codebuild/latest/userguide/welcome.html'},
+        {t:'AWS CodeDeploy',k:'docs',url:D+'/codedeploy/latest/userguide/welcome.html'},
+        {t:'GitHub Actions com credenciais AWS',k:'docs',url:'https://github.com/aws-actions/configure-aws-credentials'},
+      ]},
+      { label:'IaC e monitoramento', items:[
+        {t:'AWS CloudFormation',k:'docs',url:D+'/AWSCloudFormation/latest/UserGuide/Welcome.html'},
+        {t:'AWS CDK (em C# ou Python)',k:'docs',url:D+'/cdk/v2/guide/home.html'},
+        {t:'Amazon CloudWatch',k:'docs',url:D+'/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html'},
+        {t:'AWS X-Ray',k:'docs',url:D+'/xray/latest/devguide/aws-xray.html'},
+      ]} ]},
+
+  { milestone:true, id:'m-dva', title:'Dev AWS', next:'Hora de agendar a Developer Associate',
+    cert:{code:'DVA-C03',name:'Developer Associate',note:'A DVA-C03 substitui a DVA-C02 a partir de 01/12/2026. Ela inclui segurança de IA, Bedrock, Amazon Q e containers. Os domínios continuam: desenvolvimento 30%, segurança 26%, deploy 22%, troubleshooting 22%.',links:[
+      {t:'Página da certificação',url:'https://aws.amazon.com/pt/certification/certified-developer-associate/'},
+      {t:'Simulados no Skill Builder',url:SB} ]} },
+
+  { id:'ia', title:'Inteligência Artificial', blurb:'Bedrock e cia. Também entraram no escopo da DVA-C03.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Amazon Bedrock',k:'docs',url:D+'/bedrock/latest/userguide/what-is-bedrock.html'},
+      {t:'Bases de conhecimento (RAG) no Bedrock',k:'docs',url:D+'/bedrock/latest/userguide/knowledge-base.html'},
+      {t:'Guardrails do Bedrock',k:'docs',url:D+'/bedrock/latest/userguide/guardrails.html'},
+      {t:'Amazon Q Developer',k:'docs',url:D+'/amazonq/latest/qdeveloper-ug/what-is.html'},
+      {t:'Kiro (IDE com IA da AWS)',k:'pratica',url:'https://kiro.dev/'},
+    ]}],
+    cert:{code:'AIF-C01',name:'AI Practitioner',note:'Fundamentos de IA. Depois, a meta avançada é a Generative AI Developer Professional.',links:[
+      {t:'AI Practitioner',url:'https://aws.amazon.com/pt/certification/certified-ai-practitioner/'},
+      {t:'Todas as certificações',url:'https://aws.amazon.com/pt/certification/'} ]} },
+
+  { id:'arquitetura', title:'Arquitetura e rede', blurb:'Próximo nível: desenhar a solução, não só codar nela.', wide:true, cols:true,
+    groups:[
+      { label:'Rede', items:[
+        {t:'Amazon VPC',k:'docs',url:D+'/vpc/latest/userguide/what-is-amazon-vpc.html'},
+        {t:'Elastic Load Balancing',k:'docs',url:D+'/elasticloadbalancing/latest/userguide/what-is-load-balancing.html'},
+        {t:'Amazon CloudFront',k:'docs',url:D+'/AmazonCloudFront/latest/DeveloperGuide/Introduction.html'},
+      ]},
+      { label:'Arquitetura', items:[
+        {t:'Centro de Arquitetura da AWS',k:'docs',url:'https://aws.amazon.com/pt/architecture/'},
+        {t:'Os 6 pilares do Well-Architected',k:'docs',url:D+'/wellarchitected/latest/framework/the-pillars-of-the-framework.html'},
+      ]} ],
+    cert:{code:'SAA',name:'Solutions Architect Associate',note:'Depois dela, a DevOps Engineer Professional fecha o ciclo com seu lado de CI/CD.',links:[
+      {t:'Solutions Architect Associate',url:'https://aws.amazon.com/pt/certification/certified-solutions-architect-associate/'},
+      {t:'DevOps Engineer Professional',url:'https://aws.amazon.com/pt/certification/certified-devops-engineer-professional/'} ]} },
+];
+
+
+return {TOOLS,STOPS};})();
+const TABS={
+  ms:{...MS,h1:'Roadmap <em>Microsoft Learn</em>',tools:'Ferramentas do <em>Learn</em>',
+    lede:'Do AZ-900 até a AI-200 e o DevOps. Clique no nome de cada item para abrir a página no Learn e marque a caixinha quando terminar. A flor vai andando pela estrada.',
+    before:'Rumo à AI-200',after:'Depois da AI-200',finish:'Dev Azure completa!',key:'roadmap-mslearn-luisa-v1',
+    foot:'Em 2026 a Microsoft trocou várias provas: AZ-204 → AI-200, AI-102 → AI-103, AI-900 → AI-901. Antes de agendar, confira a página da certificação: os conteúdos do Learn mudam com frequência.'},
+  aws:{...AWS,h1:'Roadmap <em>AWS</em>',tools:'Ferramentas da <em>AWS</em>',
+    lede:'Da Cloud Practitioner até a Developer Associate, e depois IA e arquitetura. Clique no nome de cada item para abrir a página e marque a caixinha quando terminar. A flor vai andando pela estrada.',
+    before:'Rumo à Developer Associate',after:'Depois da Developer',finish:'Dev AWS completa!',key:'roadmap-aws-luisa-v1',
+    foot:'Mudanças de 2026: DVA-C02 → DVA-C03 (a partir de 01/12/2026), SysOps → CloudOps Engineer Associate e a nova Generative AI Developer Professional. Os cursos do Skill Builder mudam de endereço com frequência, então busque pelo nome. Passar numa prova dá 50% de desconto na próxima.'},
+};
+let TAB='ms', STOPS, TOOLS, KEY, state={checks:{}};
+try{ const t=localStorage.getItem('roadmap-tab-luisa'); if(TABS[t]) TAB=t; }catch(e){}
+function loadTab(t){
+  TAB=t; const c=TABS[t]; STOPS=c.STOPS; TOOLS=c.TOOLS; KEY=c.key; state={checks:{}};
+  try{ const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.checks) state=s; }catch(e){}
+  try{ localStorage.setItem('roadmap-tab-luisa',t); }catch(e){}
+  document.getElementById('h1').innerHTML=c.h1; document.getElementById('g-title').innerHTML=c.tools;
+  document.getElementById('lede').textContent=c.lede; document.getElementById('foot').textContent=c.foot;
+  document.getElementById('finishBig').textContent=c.finish; document.title=t==='ms'?'Roadmap Microsoft Learn':'Roadmap AWS';
+  document.querySelectorAll('.tabs [role=tab]').forEach(b=>{ const on=b.dataset.tab===t; b.setAttribute('aria-selected',on); b.tabIndex=on?0:-1; });
+}
+/* ===== Estado (salvo neste navegador) ===== */
+const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} };
+
+const slug=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const KIND={trilha:'Trilha',modulo:'Módulo',docs:'Docs',video:'Vídeo',pratica:'Prática',cert:'Cert'};
+
+function keysOf(s){ const ks=[]; (s.groups||[]).forEach(g=>g.items.forEach(it=>ks.push(s.id+'/'+slug(it.t)))); return ks; }
+
+function itemHTML(s,it){
+  const k=s.id+'/'+slug(it.t), id='c-'+k.replace(/\//g,'--');
+  return `<li><label class="item" for="${id}"><input type="checkbox" id="${id}" data-k="${k}"><span class="box" aria-hidden="true"></span>
+    <span class="txt"><a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.t)}</a><span class="kind ${it.k}">${KIND[it.k]}</span>${it.note?`<span class="note">${esc(it.note)}</span>`:''}</span></label></li>`;
+}
+function certHTML(c){
+  if(!c) return '';
+  return `<div class="certbox"><div class="top"><span class="code">${esc(c.code)}</span><strong>${esc(c.name)}</strong></div>
+    ${c.note?`<p>${esc(c.note)}</p>`:''}<div class="certlinks">${c.links.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.t)}</a>`).join('')}</div></div>`;
+}
+
+function render(){
+  let n=0;
+  document.getElementById('stops').innerHTML=STOPS.map((s,i)=>{
+    if(s.milestone) return `<li class="milestone" id="s-${s.id}" style="--i:${i}"><div class="bloom"><svg aria-hidden="true"><use href="#lily"/></svg></div>
+      <h3>${esc(s.title)}</h3><p class="ms-sub" data-ms></p><div style="max-width:560px;width:100%;text-align:left">${certHTML(s.cert)}</div></li>`;
+    n++; const side=n%2?'left':'right';
+    return `<li class="stop ${side}${s.wide?' wide':''}" id="s-${s.id}" data-id="${s.id}" style="--i:${i}"><div class="pin">${pad(n)}</div>
+      <article class="card"><span class="ribbon">Concluída</span>
+        <div class="card-head"><p class="eyebrow">Parada ${pad(n)}</p><span class="count" data-count></span><h2>${esc(s.title)}</h2>
+          ${s.blurb?`<p class="blurb">${esc(s.blurb)}</p>`:''}<div class="bar"><i data-bar></i></div></div>
+        <div class="groups${s.cols?' cols':''}">${s.groups.map(g=>`<div class="group"><p class="glabel">${esc(g.label)}</p><ul class="items">${g.items.map(it=>itemHTML(s,it)).join('')}</ul></div>`).join('')}</div>
+        ${certHTML(s.cert)}
+      </article></li>`;
+  }).join('');
+  let m=0;
+  document.getElementById('map').innerHTML=`<p class="map-part">${TABS[TAB].before}</p>`+STOPS.map(s=>{
+    if(s.milestone) return `<p class="map-part">${TABS[TAB].after}</p>`;
+    m++; return `<button type="button" data-go="${s.id}"><span class="n">${pad(m)}</span>${esc(s.title)}</button>`;
+  }).join('');
+  document.getElementById('tools').innerHTML=TOOLS.map(t=>`<li class="tool"><a href="${esc(t.url)}" target="_blank" rel="noopener"><b>${esc(t.t)}</b><span>${esc(t.d)}</span></a></li>`).join('');
+}
+
+function sync(){
+  let total=0,done=0,currentSet=false,allPrev=true;
+  document.querySelectorAll('input[data-k]').forEach(el=>el.checked=!!state.checks[el.dataset.k]);
+  STOPS.forEach(s=>{
+    const li=document.getElementById('s-'+s.id);
+    if(s.milestone){ li.classList.toggle('got',allPrev); li.querySelector('[data-ms]').textContent=allPrev?`Floresceu! ${s.next}`:'Complete as paradas acima pra florescer'; return; }
+    const ks=keysOf(s), d=ks.filter(k=>state.checks[k]).length, complete=d===ks.length;
+    total+=ks.length; done+=d; if(!complete) allPrev=false;
+    li.classList.remove('current'); li.classList.toggle('done',complete);
+    document.querySelector(`[data-go="${s.id}"]`).classList.toggle('done',complete);
+    li.querySelector('[data-count]').textContent=`${d}/${ks.length}`;
+    li.querySelector('[data-bar]').style.width=(d/ks.length*100)+'%';
+    if(!complete&&!currentSet){ li.classList.add('current'); currentSet=true; }
+  });
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('statSub').textContent=`${done} de ${total} itens`;
+  document.getElementById('ring').style.strokeDashoffset=163.4*(1-pct/100);
+  document.getElementById('finishSub').textContent=pct===100?'Roadmap completo. Parabéns!':`${pct}% do caminho até aqui`;
+  placeMarker();
+}
+function placeMarker(){
+  const route=document.getElementById('route'), cur=route.querySelector('.stop.current .pin')||[...route.querySelectorAll('.pin')].pop();
+  if(!cur) return;
+  const y=cur.getBoundingClientRect().top-route.getBoundingClientRect().top+cur.offsetHeight/2;
+  document.getElementById('marker').style.top=y+'px';
+  document.getElementById('fill').style.height=y+'px';
+}
+
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function burst(el,n){
+  if(reduce) return;
+  const r=el.getBoundingClientRect(), cols=['#CB7885','#893941','#D4D994','#5E6623'];
+  for(let i=0;i<n;i++){
+    const h=document.createElement('span'); h.className='spark'; h.textContent=i%3?'✿':'✦';
+    const a=Math.random()*Math.PI*2, dist=30+Math.random()*(n>8?90:45);
+    h.style.cssText=`left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${Math.cos(a)*dist}px;--dy:${Math.sin(a)*dist}px;--r:${(Math.random()-.5)*120}deg;--c:${cols[i%4]};--fs:${10+Math.random()*10}px`;
+    document.body.appendChild(h); setTimeout(()=>h.remove(),950);
+  }
+}
+
+loadTab(TAB); render();
+document.getElementById('stops').addEventListener('change',e=>{
+  const el=e.target; if(!el.dataset.k) return;
+  const li=el.closest('.stop'), was=li.classList.contains('done');
+  if(el.checked) state.checks[el.dataset.k]=true; else delete state.checks[el.dataset.k];
+  save(); sync();
+  if(el.checked) burst(el.nextElementSibling,7);
+  if(!was&&li.classList.contains('done')) burst(li.querySelector('.pin'),22);
+});
+document.getElementById('map').addEventListener('click',e=>{
+  const b=e.target.closest('[data-go]'); if(b) document.getElementById('s-'+b.dataset.go).scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+});
+
+document.querySelector('.tabs').addEventListener('click',e=>{
+  const b=e.target.closest('[data-tab]'); if(!b||b.dataset.tab===TAB) return;
+  loadTab(b.dataset.tab); render(); sync();
+});
+document.querySelector('.tabs').addEventListener('keydown',e=>{
+  if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight') return;
+  const t=TAB==='ms'?'aws':'ms'; loadTab(t); render(); sync(); document.querySelector(`[data-tab="${t}"]`).focus();
+});
+
+(function(){ const sky=document.getElementById('sky'), cols=['#CB7885','#D4D994','#893941','#5E6623'];
+  for(let i=0;i<16;i++){ const p=document.createElement('span'); p.className='petal';
+    p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--s:${7+Math.random()*10}px;--c:${cols[i%4]};--d:${4+Math.random()*4}s;--dl:${-Math.random()*4}s;--r:${Math.random()*360}deg`;
+    sky.appendChild(p);} })();
+
+sync();
+addEventListener('resize',placeMarker);
+if(document.fonts) document.fonts.ready.then(placeMarker);
+setTimeout(placeMarker,1700);
+</script>
+
+</body>
+</html>
