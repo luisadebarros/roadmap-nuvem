@@ -550,6 +550,12 @@ const STOPS=[
       {t:'Workshop oficial de Docker',k:'trilha',url:DK+'/get-started/workshop/'},
       {t:'Instalar o Docker Desktop',k:'pratica',url:DK+'/desktop/'},
       {t:'Referência da CLI do Docker',k:'docs',url:DK+'/reference/cli/docker/'},
+    ]},
+    { label:'Cursos e vídeos', items:[
+      {t:'Conceitos do Docker em vídeo',k:'video',url:DK+'/get-started/docker-concepts/the-basics/what-is-a-container/',note:'Série oficial curta: cada conceito tem um vídeo e um exercício.'},
+      {t:'Introdução aos contêineres do Docker',k:'modulo',url:'https://learn.microsoft.com/pt-br/training/modules/intro-to-docker-containers/'},
+      {t:'Descomplicando o Docker',k:'trilha',url:'https://github.com/badtuxx/DescomplicandoDocker',note:'Material gratuito da LINUXtips, em português.'},
+      {t:'Canal LINUXtips',k:'video',url:'https://www.youtube.com/@LINUXtips',note:'Lives e aulas de Docker e Kubernetes em português.'},
     ]}] },
 
   { id:'imagens', title:'Imagens e Dockerfile', blurb:'Escrever imagens pequenas, rápidas de buildar e seguras.',
@@ -589,6 +595,12 @@ const STOPS=[
       {t:'Tutorial: Kubernetes básico',k:'trilha',url:'https://kubernetes.io/pt-br/docs/tutorials/kubernetes-basics/'},
       {t:'kind (Kubernetes dentro do Docker)',k:'pratica',url:'https://kind.sigs.k8s.io/'},
       {t:'minikube',k:'pratica',url:'https://minikube.sigs.k8s.io/docs/start/'},
+    ]},
+    { label:'Cursos e vídeos', items:[
+      {t:'Introduction to Kubernetes (LFS158)',k:'trilha',url:'https://training.linuxfoundation.org/training/introduction-to-kubernetes/',note:'Curso gratuito da Linux Foundation.'},
+      {t:'Introdução ao Kubernetes',k:'modulo',url:'https://learn.microsoft.com/pt-br/training/modules/intro-to-kubernetes/'},
+      {t:'Descomplicando o Kubernetes',k:'trilha',url:'https://github.com/badtuxx/DescomplicandoKubernetes',note:'Material gratuito da LINUXtips, em português.'},
+      {t:'Canal TechWorld with Nana',k:'video',url:'https://www.youtube.com/@TechWorldwithNana',note:'Tutoriais didáticos de Docker e Kubernetes, em inglês.'},
     ]}],
     cert:{code:'KCNA',name:'Kubernetes and Cloud Native Associate',note:'Prova teórica de entrada. Opcional, mas boa pra fixar o vocabulário.',links:[
       {t:'Página da certificação',url:LF+'/kubernetes-cloud-native-associate/'} ]} },
@@ -616,6 +628,10 @@ const STOPS=[
       {t:'Requests e limits de recursos',k:'docs',url:K+'/concepts/configuration/manage-resources-containers/'},
       {t:'Horizontal Pod Autoscaler',k:'docs',url:K+'/tasks/run-application/horizontal-pod-autoscale/'},
       {t:'Namespaces',k:'docs',url:K+'/concepts/overview/working-with-objects/namespaces/'},
+    ]},
+    { label:'Preparação para a CKAD', items:[
+      {t:'Kubernetes for Developers (LFD259)',k:'trilha',url:'https://training.linuxfoundation.org/training/kubernetes-for-developers/',note:'Curso oficial da prova. É pago, mas costuma sair mais barato em combo com a CKAD.'},
+      {t:'Cenários de CKAD no Killercoda',k:'pratica',url:'https://killercoda.com/killer-shell-ckad',note:'Exercícios gratuitos no formato da prova.'},
     ]}] },
 
   { milestone:true, id:'m-ckad', title:'Dev Kubernetes', next:'Hora de agendar a CKAD',
@@ -628,6 +644,10 @@ const STOPS=[
       {t:'Azure Kubernetes Service (AKS)',k:'docs',url:'https://learn.microsoft.com/pt-br/azure/aks/'},
       {t:'Amazon EKS',k:'docs',url:'https://docs.aws.amazon.com/pt_br/eks/latest/userguide/what-is-eks.html'},
       {t:'Google Kubernetes Engine (GKE)',k:'docs',url:'https://cloud.google.com/kubernetes-engine/docs?hl=pt-br'},
+    ]},
+    { label:'Cursos', items:[
+      {t:'Introdução ao Kubernetes no Azure',k:'trilha',url:'https://learn.microsoft.com/pt-br/training/paths/intro-to-kubernetes-on-azure/'},
+      {t:'EKS Workshop',k:'pratica',url:'https://www.eksworkshop.com/',note:'Labs oficiais da AWS, do básico a observabilidade e segurança.'},
     ]}] },
 
   { id:'operacao', title:'GitOps, observabilidade e segurança', blurb:'Operar o cluster de verdade: deploy declarativo, métricas e menos privilégio.', wide:true, cols:true,
@@ -637,6 +657,7 @@ const STOPS=[
         {t:'Prometheus',k:'docs',url:'https://prometheus.io/docs/introduction/overview/'},
         {t:'Grafana',k:'docs',url:'https://grafana.com/docs/grafana/latest/'},
         {t:'OpenTelemetry',k:'docs',url:'https://opentelemetry.io/docs/'},
+        {t:'Canal da CNCF (palestras da KubeCon)',k:'video',url:'https://www.youtube.com/@cncf'},
       ]},
       { label:'Segurança', items:[
         {t:'RBAC',k:'docs',url:K+'/reference/access-authn-authz/rbac/'},
