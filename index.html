@@ -267,6 +267,10 @@ const STOPS=[
       {t:'Descrever os conceitos de nuvem',k:'trilha',url:L+'/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/'},
       {t:'Descrever a arquitetura e os serviços do Azure',k:'trilha',url:L+'/training/paths/azure-fundamentals-describe-azure-architecture-services/'},
       {t:'Descrever o gerenciamento e a governança do Azure',k:'trilha',url:L+'/training/paths/describe-azure-management-governance/'},
+    ]},
+    { label:'Vídeos', items:[
+      {t:'Exam Readiness Zone',k:'video',url:L+'/shows/exam-readiness-zone/',note:'Revisões oficiais das provas, inclusive da AZ-900.'},
+      {t:'Azure Friday',k:'video',url:L+'/shows/azure-friday/',note:'Episódios curtos, cada um sobre um serviço do Azure.'},
     ]}],
     cert:{code:'AZ-900',name:'Azure Fundamentals',note:'Primeira certificação, boa pra ganhar ritmo.',links:[
       {t:'Página da certificação',url:L+'/credentials/certifications/azure-fundamentals/'},
@@ -276,6 +280,8 @@ const STOPS=[
     groups:[{ label:'Estudo', items:[
       {t:'Trilha GitHub Copilot Fundamentals',k:'trilha',url:L+'/training/paths/copilot/'},
       {t:'Documentação do GitHub Copilot',k:'docs',url:'https://docs.github.com/pt/copilot'},
+      {t:'Mastering GitHub Copilot',k:'trilha',url:'https://github.com/microsoft/Mastering-GitHub-Copilot-for-Paired-Programming',note:'Curso gratuito da Microsoft, com exercícios práticos.'},
+      {t:'Canal do GitHub no YouTube',k:'video',url:'https://www.youtube.com/@GitHub'},
     ]}],
     cert:{code:'GH-300',name:'GitHub Copilot',note:'Opcional, mas rápida e muito valorizada hoje.',links:[
       {t:'Página da certificação',url:L+'/credentials/certifications/github-copilot/'} ]} },
@@ -293,6 +299,11 @@ const STOPS=[
         {t:'Testes de integração no ASP.NET Core',k:'docs',url:L+'/aspnet/core/test/integration-tests'},
         {t:'Programação assíncrona com async e await',k:'docs',url:L+'/dotnet/csharp/asynchronous-programming/'},
         {t:'Foundational C# with Microsoft',k:'pratica',url:'https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/',note:'Certificação gratuita do freeCodeCamp com a Microsoft. Opcional.'},
+      ]},
+      { label:'Vídeos', items:[
+        {t:'C# para iniciantes',k:'video',url:L+'/shows/csharp-for-beginners/'},
+        {t:'Vídeos de .NET para iniciantes',k:'video',url:'https://dotnet.microsoft.com/pt-br/learn/videos',note:'Séries sobre ASP.NET Core, EF Core, Blazor e mais.'},
+        {t:'Canal .NET no YouTube',k:'video',url:'https://www.youtube.com/@dotnet'},
       ]} ]},
 
   { id:'dados', title:'Dados', blurb:'SQL que você já domina e os bancos que caem na AI-200.', wide:true, cols:true,
@@ -306,6 +317,9 @@ const STOPS=[
         {t:'Azure Cosmos DB for NoSQL',k:'docs',url:L+'/azure/cosmos-db/nosql/'},
         {t:'Busca vetorial no Cosmos DB',k:'docs',url:L+'/azure/cosmos-db/nosql/vector-search'},
         {t:'Azure Managed Redis',k:'docs',url:L+'/azure/redis/overview'},
+      ]},
+      { label:'Vídeos', items:[
+        {t:'Data Exposed',k:'video',url:L+'/shows/data-exposed/',note:'Show da Microsoft sobre Azure SQL e dados.'},
       ]} ],
     cert:{code:'DP-900',name:'Azure Data Fundamentals',note:'Opcional: visão geral de dados no Azure.',links:[
       {t:'Página da certificação',url:L+'/credentials/certifications/azure-data-fundamentals/'} ]} },
@@ -323,6 +337,7 @@ const STOPS=[
 
   { id:'serverless', title:'Serverless e mensageria', blurb:'Domínio 3 da AI-200 (20–25%). Functions, filas e eventos.',
     groups:[{ label:'Estudo', items:[
+      {t:'Explorar o Azure Functions',k:'modulo',url:L+'/training/modules/explore-azure-functions/'},
       {t:'Visão geral do Azure Functions',k:'docs',url:L+'/azure/azure-functions/functions-overview'},
       {t:'Gatilhos e associações (triggers e bindings)',k:'docs',url:L+'/azure/azure-functions/functions-triggers-bindings'},
       {t:'Azure Service Bus: filas, tópicos e assinaturas',k:'docs',url:L+'/azure/service-bus-messaging/service-bus-queues-topics-subscriptions'},
@@ -355,6 +370,11 @@ const STOPS=[
       {t:'Microsoft Foundry (Azure AI Foundry)',k:'docs',url:L+'/azure/ai-foundry/'},
       {t:'RAG: geração aumentada por recuperação',k:'docs',url:L+'/azure/search/retrieval-augmented-generation-overview'},
       {t:'Trilhas de IA no catálogo',k:'trilha',url:L+'/training/browse/?terms=azure%20ai%20foundry',note:'Filtre por "Desenvolvedor" e nível "Intermediário".'},
+    ]},
+    { label:'Cursos', items:[
+      {t:'IA generativa para iniciantes',k:'trilha',url:'https://github.com/microsoft/generative-ai-for-beginners',note:'Curso gratuito da Microsoft, com aulas em vídeo.'},
+      {t:'IA generativa para iniciantes com .NET',k:'trilha',url:'https://github.com/microsoft/Generative-AI-for-beginners-dotnet'},
+      {t:'IA para iniciantes',k:'trilha',url:'https://github.com/microsoft/AI-For-Beginners',note:'Fundamentos de machine learning e redes neurais.'},
     ]}],
     cert:{code:'AI-901',name:'Azure AI Fundamentals',note:'Substituiu a prova AI-900. Depois dela, a próxima é a AI-103 (sucessora da AI-102).',links:[
       {t:'Página da certificação',url:L+'/credentials/certifications/azure-ai-fundamentals/'},
@@ -367,6 +387,7 @@ const STOPS=[
         {t:'Azure Pipelines',k:'docs',url:L+'/azure/devops/pipelines/'},
         {t:'Referência do YAML de pipelines',k:'docs',url:L+'/azure/devops/pipelines/yaml-schema/'},
         {t:'Automatizar fluxos com GitHub Actions',k:'trilha',url:L+'/training/paths/automate-workflow-github-actions/'},
+        {t:'The DevOps Lab',k:'video',url:L+'/shows/devops-lab/'},
       ]},
       { label:'Infraestrutura como código', items:[
         {t:'Fundamentos do Bicep',k:'trilha',url:L+'/training/paths/fundamentals-bicep/'},
@@ -381,6 +402,8 @@ const STOPS=[
       {t:'Criar aplicativos JavaScript com TypeScript',k:'trilha',url:L+'/training/paths/build-javascript-applications-typescript/'},
       {t:'FastAPI no Azure App Service',k:'docs',url:L+'/azure/app-service/quickstart-python?tabs=fastapi'},
       {t:'Python no Azure',k:'docs',url:L+'/azure/developer/python/'},
+      {t:'Desenvolvimento em Python para iniciantes',k:'video',url:L+'/shows/intro-to-python-development/'},
+      {t:'Desenvolvimento web para iniciantes',k:'trilha',url:'https://github.com/microsoft/Web-Dev-For-Beginners',note:'Curso gratuito da Microsoft de HTML, CSS e JavaScript.'},
     ]}],
     cert:{code:'SC-900',name:'Security, Compliance and Identity Fundamentals',note:'Entra ID, OAuth e Zero Trust.',links:[
       {t:'Página da certificação',url:L+'/credentials/certifications/security-compliance-and-identity-fundamentals/'} ]} },
@@ -410,6 +433,11 @@ const STOPS=[
       {t:'AWS Well-Architected Framework',k:'docs',url:D+'/wellarchitected/latest/framework/welcome.html'},
       {t:'Calculadora de preços',k:'pratica',url:'https://calculator.aws/'},
       {t:'Tabela de serviços equivalentes AWS × Azure × GCP',k:'docs',url:'https://cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison'},
+    ]},
+    { label:'Cursos e vídeos', items:[
+      {t:'AWS Cloud Quest: Cloud Practitioner',k:'trilha',url:SB,note:'Jogo gratuito com labs práticos. Busque o nome no Skill Builder.'},
+      {t:'Canal AWS Training and Certification',k:'video',url:'https://www.youtube.com/@AWSTrainingAndCertification'},
+      {t:'Canal oficial da AWS',k:'video',url:'https://www.youtube.com/@amazonwebservices'},
     ]}],
     cert:{code:'CLF-C02',name:'Cloud Practitioner',note:'Primeira certificação. O guia do exame agora inclui conceitos de IA generativa.',links:[
       {t:'Página da certificação',url:'https://aws.amazon.com/pt/certification/certified-cloud-practitioner/'} ]} },
@@ -422,6 +450,7 @@ const STOPS=[
       {t:'AWS Secrets Manager',k:'docs',url:D+'/secretsmanager/latest/userguide/intro.html'},
       {t:'Parameter Store',k:'docs',url:D+'/systems-manager/latest/userguide/systems-manager-parameter-store.html'},
       {t:'AWS KMS (chaves e criptografia)',k:'docs',url:D+'/kms/latest/developerguide/overview.html'},
+      {t:'AWS Security Fundamentals',k:'trilha',url:SB,note:'Curso gratuito. Busque o nome no Skill Builder.'},
     ]}]},
 
   { id:'sdk', title:'Código na AWS: CLI e SDKs', blurb:'Usar a AWS a partir de C# e Python, que é o seu dia a dia.', wide:true, cols:true,
@@ -457,6 +486,7 @@ const STOPS=[
       {t:'AWS Step Functions',k:'docs',url:D+'/step-functions/latest/dg/welcome.html'},
       {t:'AWS SAM',k:'docs',url:D+'/serverless-application-model/latest/developerguide/what-is-sam.html'},
       {t:'Padrões serverless prontos',k:'pratica',url:'https://serverlessland.com/patterns'},
+      {t:'Vídeos do Serverless Land',k:'video',url:'https://serverlessland.com/video'},
     ]}]},
 
   { id:'mensageria', title:'Mensageria e eventos', blurb:'O equivalente ao Service Bus e Pub/Sub que você já conhece.',
@@ -476,6 +506,7 @@ const STOPS=[
       {t:'AWS Fargate',k:'docs',url:D+'/AmazonECS/latest/developerguide/AWS_Fargate.html'},
       {t:'Amazon EKS',k:'docs',url:D+'/eks/latest/userguide/what-is-eks.html'},
       {t:'EKS Workshop',k:'pratica',url:'https://www.eksworkshop.com/'},
+      {t:'ECS Workshop',k:'pratica',url:'https://ecsworkshop.com/'},
     ]}]},
 
   { id:'deploy', title:'Deploy, IaC e observabilidade', blurb:'Testes e deploy são 22% da prova; troubleshooting, outros 22%.', wide:true, cols:true,
@@ -489,6 +520,7 @@ const STOPS=[
       { label:'IaC e monitoramento', items:[
         {t:'AWS CloudFormation',k:'docs',url:D+'/AWSCloudFormation/latest/UserGuide/Welcome.html'},
         {t:'AWS CDK (em C# ou Python)',k:'docs',url:D+'/cdk/v2/guide/home.html'},
+        {t:'CDK Workshop',k:'pratica',url:'https://cdkworkshop.com/',note:'Tem versões em C# e Python.'},
         {t:'Amazon CloudWatch',k:'docs',url:D+'/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html'},
         {t:'AWS X-Ray',k:'docs',url:D+'/xray/latest/devguide/aws-xray.html'},
       ]} ]},
@@ -496,7 +528,8 @@ const STOPS=[
   { milestone:true, id:'m-dva', title:'Dev AWS', next:'Hora de agendar a Developer Associate',
     cert:{code:'DVA-C03',name:'Developer Associate',note:'A DVA-C03 substitui a DVA-C02 a partir de 01/12/2026. Ela inclui segurança de IA, Bedrock, Amazon Q e containers. Os domínios continuam: desenvolvimento 30%, segurança 26%, deploy 22%, troubleshooting 22%.',links:[
       {t:'Página da certificação',url:'https://aws.amazon.com/pt/certification/certified-developer-associate/'},
-      {t:'Simulados no Skill Builder',url:SB} ]} },
+      {t:'Simulados no Skill Builder',url:SB},
+      {t:'Simulados Tutorials Dojo (pagos)',url:'https://tutorialsdojo.com/'} ]} },
 
   { id:'ia', title:'Inteligência Artificial', blurb:'Bedrock e cia. Também entraram no escopo da DVA-C03.',
     groups:[{ label:'Estudo', items:[
@@ -505,6 +538,7 @@ const STOPS=[
       {t:'Guardrails do Bedrock',k:'docs',url:D+'/bedrock/latest/userguide/guardrails.html'},
       {t:'Amazon Q Developer',k:'docs',url:D+'/amazonq/latest/qdeveloper-ug/what-is.html'},
       {t:'Kiro (IDE com IA da AWS)',k:'pratica',url:'https://kiro.dev/'},
+      {t:'PartyRock',k:'pratica',url:'https://partyrock.aws/',note:'Monte apps de IA generativa sem código, de graça.'},
     ]}],
     cert:{code:'AIF-C01',name:'AI Practitioner',note:'Fundamentos de IA. Depois, a meta avançada é a Generative AI Developer Professional.',links:[
       {t:'AI Practitioner',url:'https://aws.amazon.com/pt/certification/certified-ai-practitioner/'},
@@ -520,6 +554,10 @@ const STOPS=[
       { label:'Arquitetura', items:[
         {t:'Centro de Arquitetura da AWS',k:'docs',url:'https://aws.amazon.com/pt/architecture/'},
         {t:'Os 6 pilares do Well-Architected',k:'docs',url:D+'/wellarchitected/latest/framework/the-pillars-of-the-framework.html'},
+      ]},
+      { label:'Vídeos', items:[
+        {t:'Canal AWS Events (palestras do re:Invent)',k:'video',url:'https://www.youtube.com/@AWSEventsChannel'},
+        {t:'Canal Be A Better Dev',k:'video',url:'https://www.youtube.com/@BeABetterDev',note:'Tutoriais práticos de serviços AWS, em inglês.'},
       ]} ],
     cert:{code:'SAA',name:'Solutions Architect Associate',note:'Depois dela, a DevOps Engineer Professional fecha o ciclo com seu lado de CI/CD.',links:[
       {t:'Solutions Architect Associate',url:'https://aws.amazon.com/pt/certification/certified-solutions-architect-associate/'},
