@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Roadmaps de Nuvem</title>
-<meta name="description" content="Roadmap interativo de estudos de nuvem: Microsoft Learn (AZ-900 → AI-200) e AWS (Cloud Practitioner → Developer Associate).">
+<meta name="description" content="Roadmap interativo de estudos de nuvem: Microsoft Learn (AZ-900 → AI-200), AWS (Cloud Practitioner → Developer Associate) e Docker &amp; Kubernetes (Docker → CKAD).">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-32 -32 64 64'%3E%3Cg fill='%23CB7885' stroke='%23893941'%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z'/%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z' transform='rotate(72)'/%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z' transform='rotate(144)'/%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z' transform='rotate(216)'/%3E%3Cpath d='M0 0C-6-8-5-22 0-29C5-22 6-8 0 0Z' transform='rotate(288)'/%3E%3C/g%3E%3Ccircle r='6' fill='%23D4D994' stroke='%235E6623'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -169,6 +169,8 @@ button:focus-visible,a:focus-visible,.item input:focus-visible+.box{outline:2.5p
 
 @media (max-width:760px){
   .wrap{padding-inline:16px}
+  .tabs{max-width:100%;flex-wrap:wrap;justify-content:center}
+  .tabs button{padding:10px 13px;font-size:13px}
   .road,.marker{left:22px}
   .stop{grid-template-columns:44px 1fr;column-gap:10px}
   .pin{grid-column:1;width:38px;height:38px;margin-top:16px;justify-self:start;margin-left:3px}
@@ -213,7 +215,7 @@ button:focus-visible,a:focus-visible,.item input:focus-visible+.box{outline:2.5p
       <p class="eyebrow">Trilha de estudos <span class="dot"></span> nov/2026</p>
       <h1 id="h1"></h1>
     </div>
-    <div class="tabs" role="tablist" aria-label="Escolha o roadmap"><button type="button" role="tab" data-tab="ms" aria-controls="panel">Microsoft Learn</button><button type="button" role="tab" data-tab="aws" aria-controls="panel">AWS</button></div>
+    <div class="tabs" role="tablist" aria-label="Escolha o roadmap"><button type="button" role="tab" data-tab="ms" aria-controls="panel">Microsoft Learn</button><button type="button" role="tab" data-tab="aws" aria-controls="panel">AWS</button><button type="button" role="tab" data-tab="k8s" aria-controls="panel">Docker &amp; K8s</button></div>
     <p class="lede" id="lede"></p>
     <div class="stats">
       <svg class="ring" viewBox="0 0 62 62" aria-hidden="true">
@@ -526,6 +528,127 @@ const STOPS=[
 
 
 return {TOOLS,STOPS};})();
+const K8S=(()=>{
+/* ===== Conteúdo — editar aqui =====
+   k: trilha | modulo | docs | video | pratica | cert   */
+const DK='https://docs.docker.com';
+const K='https://kubernetes.io/docs';
+const LF='https://training.linuxfoundation.org/certification';
+const TOOLS=[
+  {t:'Docker Docs',d:'Guias, manuais e referência do Docker, Compose e Build.',url:DK+'/'},
+  {t:'Documentação do Kubernetes',d:'Conceitos, tarefas e tutoriais oficiais.',url:'https://kubernetes.io/pt-br/docs/home/'},
+  {t:'Cheat sheet do kubectl',d:'Os comandos do dia a dia num lugar só.',url:'https://kubernetes.io/pt-br/docs/reference/kubectl/cheatsheet/'},
+  {t:'Play with Docker',d:'Docker no navegador, sem instalar nada.',url:'https://labs.play-with-docker.com/'},
+  {t:'Killercoda',d:'Labs interativos de Kubernetes no navegador.',url:'https://killercoda.com/'},
+  {t:'CNCF Landscape',d:'O mapa do ecossistema cloud native.',url:'https://landscape.cncf.io/'},
+];
+
+const STOPS=[
+  { id:'docker', title:'Fundamentos de Docker', blurb:'Imagem, container, registry. A base de tudo que vem depois.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Visão geral do Docker',k:'docs',url:DK+'/get-started/docker-overview/'},
+      {t:'Workshop oficial de Docker',k:'trilha',url:DK+'/get-started/workshop/'},
+      {t:'Instalar o Docker Desktop',k:'pratica',url:DK+'/desktop/'},
+      {t:'Referência da CLI do Docker',k:'docs',url:DK+'/reference/cli/docker/'},
+    ]}] },
+
+  { id:'imagens', title:'Imagens e Dockerfile', blurb:'Escrever imagens pequenas, rápidas de buildar e seguras.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Referência do Dockerfile',k:'docs',url:DK+'/reference/dockerfile/'},
+      {t:'Builds multi-stage',k:'docs',url:DK+'/build/building/multi-stage/'},
+      {t:'Boas práticas de build',k:'docs',url:DK+'/build/building/best-practices/'},
+      {t:'Containerizar uma aplicação .NET',k:'pratica',url:DK+'/guides/dotnet/'},
+      {t:'Containerizar uma aplicação Python',k:'pratica',url:DK+'/guides/python/',note:'Bom pra empacotar suas APIs FastAPI.'},
+    ]}] },
+
+  { id:'compose', title:'Compose, volumes e rede', blurb:'Subir a aplicação inteira (API, banco, cache) com um comando.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Docker Compose',k:'docs',url:DK+'/compose/'},
+      {t:'Referência do arquivo Compose',k:'docs',url:DK+'/reference/compose-file/'},
+      {t:'Volumes',k:'docs',url:DK+'/engine/storage/volumes/'},
+      {t:'Redes no Docker',k:'docs',url:DK+'/engine/network/'},
+    ]}] },
+
+  { id:'registry', title:'Registry, segurança e CI', blurb:'Publicar imagens confiáveis e automatizar o build.', wide:true, cols:true,
+    groups:[
+      { label:'Registry e segurança', items:[
+        {t:'Docker Hub',k:'docs',url:DK+'/docker-hub/'},
+        {t:'Docker Scout (vulnerabilidades)',k:'docs',url:DK+'/scout/'},
+        {t:'Segurança do Docker Engine',k:'docs',url:DK+'/engine/security/'},
+        {t:'Modo rootless',k:'docs',url:DK+'/engine/security/rootless/'},
+      ]},
+      { label:'CI', items:[
+        {t:'Docker com GitHub Actions',k:'docs',url:DK+'/build/ci/github-actions/'},
+        {t:'Cache de build',k:'docs',url:DK+'/build/cache/'},
+      ]} ]},
+
+  { id:'k8s', title:'Fundamentos de Kubernetes', blurb:'Arquitetura do cluster e o primeiro deploy. Rode localmente com kind ou minikube.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Visão geral do Kubernetes',k:'docs',url:'https://kubernetes.io/pt-br/docs/concepts/overview/'},
+      {t:'Componentes do Kubernetes',k:'docs',url:K+'/concepts/overview/components/'},
+      {t:'Tutorial: Kubernetes básico',k:'trilha',url:'https://kubernetes.io/pt-br/docs/tutorials/kubernetes-basics/'},
+      {t:'kind (Kubernetes dentro do Docker)',k:'pratica',url:'https://kind.sigs.k8s.io/'},
+      {t:'minikube',k:'pratica',url:'https://minikube.sigs.k8s.io/docs/start/'},
+    ]}],
+    cert:{code:'KCNA',name:'Kubernetes and Cloud Native Associate',note:'Prova teórica de entrada. Opcional, mas boa pra fixar o vocabulário.',links:[
+      {t:'Página da certificação',url:LF+'/kubernetes-cloud-native-associate/'} ]} },
+
+  { id:'workloads', title:'Workloads e rede', blurb:'Os objetos que você vai escrever em YAML todo dia.', wide:true, cols:true,
+    groups:[
+      { label:'Workloads', items:[
+        {t:'Pods',k:'docs',url:K+'/concepts/workloads/pods/'},
+        {t:'Deployments',k:'docs',url:K+'/concepts/workloads/controllers/deployment/'},
+        {t:'Jobs e CronJobs',k:'docs',url:K+'/concepts/workloads/controllers/job/'},
+        {t:'Probes de liveness, readiness e startup',k:'docs',url:K+'/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/'},
+      ]},
+      { label:'Rede e configuração', items:[
+        {t:'Services',k:'docs',url:K+'/concepts/services-networking/service/'},
+        {t:'Ingress',k:'docs',url:K+'/concepts/services-networking/ingress/'},
+        {t:'ConfigMaps',k:'docs',url:K+'/concepts/configuration/configmap/'},
+        {t:'Secrets',k:'docs',url:K+'/concepts/configuration/secret/'},
+        {t:'Volumes persistentes',k:'docs',url:K+'/concepts/storage/persistent-volumes/'},
+      ]} ]},
+
+  { id:'pacotes', title:'Helm, recursos e escala', blurb:'Empacotar a aplicação e deixar o cluster escalar sozinho.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Helm: guia de início rápido',k:'docs',url:'https://helm.sh/docs/intro/quickstart/'},
+      {t:'Kustomize',k:'docs',url:K+'/tasks/manage-kubernetes-objects/kustomization/'},
+      {t:'Requests e limits de recursos',k:'docs',url:K+'/concepts/configuration/manage-resources-containers/'},
+      {t:'Horizontal Pod Autoscaler',k:'docs',url:K+'/tasks/run-application/horizontal-pod-autoscale/'},
+      {t:'Namespaces',k:'docs',url:K+'/concepts/overview/working-with-objects/namespaces/'},
+    ]}] },
+
+  { milestone:true, id:'m-ckad', title:'Dev Kubernetes', next:'Hora de agendar a CKAD',
+    cert:{code:'CKAD',name:'Certified Kubernetes Application Developer',note:'Prova prática de 2 horas, direto no terminal. A inscrição inclui duas sessões do simulador killer.sh e uma segunda tentativa. Velocidade com kubectl conta muito.',links:[
+      {t:'Página da certificação',url:LF+'/certified-kubernetes-application-developer-ckad/'},
+      {t:'Simulador killer.sh',url:'https://killer.sh/'} ]} },
+
+  { id:'gerenciado', title:'Kubernetes gerenciado', blurb:'O mesmo Kubernetes nas três nuvens que você já estuda.',
+    groups:[{ label:'Estudo', items:[
+      {t:'Azure Kubernetes Service (AKS)',k:'docs',url:'https://learn.microsoft.com/pt-br/azure/aks/'},
+      {t:'Amazon EKS',k:'docs',url:'https://docs.aws.amazon.com/pt_br/eks/latest/userguide/what-is-eks.html'},
+      {t:'Google Kubernetes Engine (GKE)',k:'docs',url:'https://cloud.google.com/kubernetes-engine/docs?hl=pt-br'},
+    ]}] },
+
+  { id:'operacao', title:'GitOps, observabilidade e segurança', blurb:'Operar o cluster de verdade: deploy declarativo, métricas e menos privilégio.', wide:true, cols:true,
+    groups:[
+      { label:'GitOps e observabilidade', items:[
+        {t:'Argo CD',k:'docs',url:'https://argo-cd.readthedocs.io/en/stable/'},
+        {t:'Prometheus',k:'docs',url:'https://prometheus.io/docs/introduction/overview/'},
+        {t:'Grafana',k:'docs',url:'https://grafana.com/docs/grafana/latest/'},
+        {t:'OpenTelemetry',k:'docs',url:'https://opentelemetry.io/docs/'},
+      ]},
+      { label:'Segurança', items:[
+        {t:'RBAC',k:'docs',url:K+'/reference/access-authn-authz/rbac/'},
+        {t:'Network Policies',k:'docs',url:K+'/concepts/services-networking/network-policies/'},
+        {t:'Pod Security Standards',k:'docs',url:K+'/concepts/security/pod-security-standards/'},
+      ]} ],
+    cert:{code:'CKA',name:'Certified Kubernetes Administrator',note:'O lado de administração do cluster. Depois dela, a CKS fecha a trilha com segurança.',links:[
+      {t:'CKA',url:LF+'/certified-kubernetes-administrator-cka/'},
+      {t:'CKS',url:LF+'/certified-kubernetes-security-specialist/'} ]} },
+];
+
+return {TOOLS,STOPS};})();
 const TABS={
   ms:{...MS,h1:'Roadmap <em>Microsoft Learn</em>',tools:'Ferramentas do <em>Learn</em>',
     lede:'Do AZ-900 até a AI-200 e o DevOps. Clique no nome de cada item para abrir a página no Learn e marque a caixinha quando terminar. A flor vai andando pela estrada.',
@@ -535,7 +658,12 @@ const TABS={
     lede:'Da Cloud Practitioner até a Developer Associate, e depois IA e arquitetura. Clique no nome de cada item para abrir a página e marque a caixinha quando terminar. A flor vai andando pela estrada.',
     before:'Rumo à Developer Associate',after:'Depois da Developer',finish:'Dev AWS completa!',key:'roadmap-aws-luisa-v1',
     foot:'Mudanças de 2026: DVA-C02 → DVA-C03 (a partir de 01/12/2026), SysOps → CloudOps Engineer Associate e a nova Generative AI Developer Professional. Os cursos do Skill Builder mudam de endereço com frequência, então busque pelo nome. Passar numa prova dá 50% de desconto na próxima.'},
+  k8s:{...K8S,h1:'Roadmap <em>Docker &amp; Kubernetes</em>',tools:'Ferramentas de <em>containers</em>',
+    lede:'Do primeiro container até a CKAD, e depois Kubernetes gerenciado e operação. Clique no nome de cada item para abrir a página e marque a caixinha quando terminar. A flor vai andando pela estrada.',
+    before:'Rumo à CKAD',after:'Depois da CKAD',finish:'Dev Kubernetes completa!',key:'roadmap-k8s-luisa-v1',
+    foot:'As provas KCNA, CKAD, CKA e CKS são da Linux Foundation/CNCF e acompanham a versão atual do Kubernetes. Antes de agendar, confira na página da prova qual versão cai. A Linux Foundation costuma ter promoções de certificação, então vale esperar uma.'},
 };
+const TITLES={ms:'Roadmap Microsoft Learn',aws:'Roadmap AWS',k8s:'Roadmap Docker & Kubernetes'};
 let TAB='ms', STOPS, TOOLS, KEY, state={checks:{}};
 try{ const t=localStorage.getItem('roadmap-tab-luisa'); if(TABS[t]) TAB=t; }catch(e){}
 function loadTab(t){
@@ -544,7 +672,7 @@ function loadTab(t){
   try{ localStorage.setItem('roadmap-tab-luisa',t); }catch(e){}
   document.getElementById('h1').innerHTML=c.h1; document.getElementById('g-title').innerHTML=c.tools;
   document.getElementById('lede').textContent=c.lede; document.getElementById('foot').textContent=c.foot;
-  document.getElementById('finishBig').textContent=c.finish; document.title=t==='ms'?'Roadmap Microsoft Learn':'Roadmap AWS';
+  document.getElementById('finishBig').textContent=c.finish; document.title=TITLES[t];
   document.querySelectorAll('.tabs [role=tab]').forEach(b=>{ const on=b.dataset.tab===t; b.setAttribute('aria-selected',on); b.tabIndex=on?0:-1; });
 }
 /* ===== Estado (salvo neste navegador) ===== */
@@ -650,7 +778,7 @@ document.querySelector('.tabs').addEventListener('click',e=>{
 });
 document.querySelector('.tabs').addEventListener('keydown',e=>{
   if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight') return;
-  const t=TAB==='ms'?'aws':'ms'; loadTab(t); render(); sync(); document.querySelector(`[data-tab="${t}"]`).focus();
+  const ids=Object.keys(TABS), t=ids[(ids.indexOf(TAB)+(e.key==='ArrowRight'?1:ids.length-1))%ids.length]; loadTab(t); render(); sync(); document.querySelector(`[data-tab="${t}"]`).focus();
 });
 
 (function(){ const sky=document.getElementById('sky'), cols=['#CB7885','#D4D994','#893941','#5E6623'];
