@@ -130,7 +130,15 @@ button:focus-visible,a:focus-visible,.item input:focus-visible+.box{outline:2.5p
 .txt a{font-weight:500;text-decoration:none;color:var(--ink);background-image:linear-gradient(var(--rose),var(--rose));background-size:100% 1px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .25s,color .2s;overflow-wrap:anywhere}
 .txt a::after{content:" ↗";color:var(--wine);font-size:12px}
 .txt a:hover{color:var(--wine);background-size:100% 2px}
-.item input:checked~.txt a{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--rose);text-decoration-thickness:2px}
+.item input:checked~.txt a,.item input:checked~.txt .label{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--rose);text-decoration-thickness:2px}
+.txt .label{font-weight:500}
+.items.sub{margin:0 0 2px 18px;padding-left:10px;border-left:1px dashed var(--rose)}
+.item.ref{cursor:default}
+.ref-dot{flex:none;width:7px;height:7px;margin:8px 7px 0 6px;border-radius:50%;background:var(--rose)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:500 13px/1 var(--f-body);color:var(--ink);background:var(--lime-soft);border:1px solid transparent;border-radius:999px;padding:8px 12px;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.chip:hover{border-color:var(--olive)}
+.chip[aria-checked="true"]{background:var(--wine);color:var(--on-wine)}
 .kind{font:500 10px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 6px;border-radius:6px;background:var(--lime-soft);color:var(--olive);white-space:nowrap}
 .kind.cert{background:var(--wine);color:var(--on-wine)}
 .kind.docs{background:var(--rose-soft);color:var(--wine)}
@@ -215,7 +223,7 @@ button:focus-visible,a:focus-visible,.item input:focus-visible+.box{outline:2.5p
       <p class="eyebrow">Trilha de estudos <span class="dot"></span> nov/2026</p>
       <h1 id="h1"></h1>
     </div>
-    <div class="tabs" role="tablist" aria-label="Escolha o roadmap"><button type="button" role="tab" data-tab="ms" aria-controls="panel">Microsoft Learn</button><button type="button" role="tab" data-tab="aws" aria-controls="panel">AWS</button><button type="button" role="tab" data-tab="k8s" aria-controls="panel">Docker &amp; K8s</button></div>
+    <div class="tabs" role="tablist" aria-label="Escolha o roadmap"><button type="button" role="tab" data-tab="ms" aria-controls="panel">Microsoft Learn</button><button type="button" role="tab" data-tab="aws" aria-controls="panel">AWS</button><button type="button" role="tab" data-tab="k8s" aria-controls="panel">Docker &amp; K8s</button><button type="button" role="tab" data-tab="dev" aria-controls="panel">Programação</button></div>
     <p class="lede" id="lede"></p>
     <div class="stats">
       <svg class="ring" viewBox="0 0 62 62" aria-hidden="true">
@@ -708,6 +716,275 @@ const STOPS=[
 ];
 
 return {TOOLS,STOPS};})();
+const DEV=(()=>{
+/* ===== Conteúdo — editar aqui =====
+   Tópico: 'texto' ou {t, tag?, k?, children?}. Grupo {choice:true} = escolha uma opção.
+   Grupo {ref:true} = materiais com link, que não contam no progresso.   */
+const AMZ='https://www.amazon.com.br/s?k=';
+const ML='https://learn.microsoft.com/pt-br';
+const TOOLS=[
+  {t:'Akitando',d:'Fabio Akita explica computador, memória, Linux e compiladores, em português.',url:'https://www.youtube.com/@Akitando'},
+  {t:'Curso em Vídeo',d:'Algoritmos, Python, MySQL, Git e HTML com certificado, em português.',url:'https://www.cursoemvideo.com/'},
+  {t:'roadmap.sh — Backend',d:'Cada tópico tem um resumo e links de estudo.',url:'https://roadmap.sh/backend'},
+  {t:'Microsoft Learn',d:'Trilhas gratuitas de C#, .NET, Azure e DevOps, em português.',url:ML+'/training/'},
+];
+
+const STOPS=[
+  { id:'fundamentos', title:'Fundamentos', blurb:'Entender a máquina antes de mandar nela.',
+    groups:[
+      { label:'Tópicos', items:['Como funciona um computador','Como os programas rodam na memória','Como os processadores funcionam',
+        'Sistemas Operacionais','Diferença entre linguagem compilada x interpretada','Linux (Ubuntu ou Debian)'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'CS50x: Introduction to Computer Science',k:'curso',url:'https://cs50.harvard.edu/x/',note:'Comece por aqui. O curso introdutório de Harvard. Em inglês, com legenda em português no YouTube.'},
+        {t:'Crash Course Computer Science',k:'video',url:'https://www.youtube.com/results?search_query=crash+course+computer+science',note:'Vídeos de 10 min sobre CPU, memória, SO e compiladores. Em inglês, ative a legenda.'},
+        {t:'Code — Charles Petzold',k:'livro',url:AMZ+'Code+Charles+Petzold',note:'Constrói um computador do zero, partindo de lanterna e código Morse. Pago, em inglês.'},
+        {t:'Operating Systems: Three Easy Pieces',k:'livro',url:'https://pages.cs.wisc.edu/~remzi/OSTEP/',note:'Livro gratuito de SO. Leia os capítulos de processos e memória virtual. Em inglês.'},
+        {t:'Guia Foca Linux',k:'docs',url:'https://www.guiafoca.org/',note:'Guia clássico de Linux em português.'},
+        {t:'Linux Journey',k:'pratica',url:'https://linuxjourney.com/',note:'Lições curtas com exercícios de terminal, arquivos e permissões. Em inglês.'},
+      ]} ]},
+
+  { id:'linguagem', title:'Escolha uma linguagem', blurb:'Uma linguagem principal e a base que serve pra qualquer uma.',
+    groups:[
+      { label:'Linguagem', choice:true, items:['C#','Python','JavaScript','Java','PHP','Ruby','Go','Rust','C++'] },
+      { label:'Base', items:['Lógica de programação','Algoritmos e estruturas de dados',
+        {t:'Paradigmas de Programação',children:['Programação Procedural','Programação Funcional',
+          {t:'Programação Orientada a Objetos',children:['Abstração','Herança','Polimorfismo','Encapsulamento']} ]} ]},
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Curso de Algoritmos — Curso em Vídeo',k:'curso',url:'https://www.cursoemvideo.com/',note:'Comece por aqui. Lógica de programação do zero, em português.'},
+        {t:'Entendendo Algoritmos — Aditya Bhargava',k:'livro',url:AMZ+'Entendendo+Algoritmos+Bhargava',note:'Algoritmos e estruturas de dados com desenhos. Pago, em português.'},
+        {t:'VisuAlgo',k:'pratica',url:'https://visualgo.net/',note:'Animações de listas, árvores, grafos e ordenações. Em inglês.'},
+        {t:'Documentação de C#',k:'docs',url:ML+'/dotnet/csharp/',note:'Tutoriais oficiais de C#, do básico até POO.'},
+        {t:'Programação orientada a objetos em C#',k:'docs',url:ML+'/dotnet/csharp/fundamentals/tutorials/oop'},
+        {t:'Tutorial oficial de Python',k:'docs',url:'https://docs.python.org/pt-br/3/tutorial/',note:'Se escolher Python.'},
+      ]} ]},
+
+  { id:'sql', title:'SQL e Bancos relacionais', blurb:'Guardar, relacionar e proteger os dados.',
+    groups:[
+      { label:'Conceitos', items:['Operações de CRUD','Relacionamentos','ACID','Transações'] },
+      { label:'Normalização', items:[ {t:'Dependência funcional',tag:'base'},
+        {t:'1FN – Primeira Forma Normal',children:[ {t:'2FN – Segunda Forma Normal',children:[ {t:'3FN – Terceira Forma Normal',children:[
+          {t:'FNBC – Forma Normal de Boyce-Codd',children:['4FN – Quarta Forma Normal']} ]} ]} ]} ]},
+      { label:'Escolha um banco', choice:true, items:['MySQL','SQLite','PostgreSQL','MariaDB','Oracle'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'SQLBolt',k:'pratica',url:'https://sqlbolt.com/',note:'Comece por aqui. Exercícios interativos do SELECT aos JOINs. Em inglês.'},
+        {t:'Learn Database Normalization — Decomplexify',k:'video',url:'https://www.youtube.com/results?search_query=decomplexify+learn+database+normalization',note:'Comece por aqui na normalização: um exemplo só, da 1FN à 4FN. Em inglês, com legenda.'},
+        {t:'Curso de MySQL — Curso em Vídeo',k:'curso',url:'https://www.cursoemvideo.com/',note:'CRUD, relacionamentos e modelagem, em português.'},
+        {t:'PostgreSQL Tutorial',k:'docs',url:'https://neon.com/postgresql/tutorial',note:'Cada comando com exemplo, inclusive transações. Em inglês.'},
+        {t:'SQL Tutorial — Mode',k:'pratica',url:'https://mode.com/sql-tutorial/',note:'Do básico ao avançado com dados reais. Em inglês.'},
+        {t:'Normalização — Bóson Treinamentos',k:'video',url:'https://www.youtube.com/results?search_query=b%C3%B3son+treinamentos+normaliza%C3%A7%C3%A3o',note:'Uma aula por forma normal, em português.'},
+        {t:'Normalização em SGBD — DataCamp',k:'artigo',url:'https://www.datacamp.com/pt/tutorial/normalization-in-dbms',note:'Tabelas de exemplo antes e depois de cada forma.'},
+        {t:'Projeto de Banco de Dados — Heuser',k:'livro',url:AMZ+'Projeto+de+Banco+de+Dados+Heuser',note:'Livro brasileiro de modelagem e formas normais. Pago.'},
+        {t:'Sistemas de Banco de Dados — Elmasri & Navathe',k:'livro',url:AMZ+'Sistemas+de+Banco+de+Dados+Elmasri+Navathe',note:'Pra aprofundar em dependência funcional, FNBC e 4FN. Pago.'},
+      ]} ]},
+
+  { id:'versionamento', title:'Versionamento de Código', blurb:'Histórico do código e um lugar pra guardar ele na nuvem.',
+    groups:[
+      { label:'Ferramenta', items:['Git'] },
+      { label:'Repositório remoto', choice:true, items:['GitHub','GitLab','Bitbucket'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Pro Git',k:'livro',url:'https://git-scm.com/book/pt-br/v2',note:'Comece por aqui. O livro oficial do Git, gratuito e traduzido. Os capítulos 1 a 3 cobrem o dia a dia.'},
+        {t:'Learn Git Branching',k:'pratica',url:'https://learngitbranching.js.org/?locale=pt_BR',note:'Jogo visual de branch, merge e rebase, em português.'},
+        {t:'GitHub Skills',k:'pratica',url:'https://skills.github.com/',note:'Cursos práticos de PR, Actions e Pages. Em inglês.'},
+      ]} ]},
+
+  { id:'redes', title:'Redes e Internet', blurb:'O caminho que uma requisição faz até chegar no servidor.',
+    groups:[
+      { label:'Fundamentos da web', items:['Como a internet funciona','O que é um Nome de Domínio','Como funciona um DNS','O que é uma URL (estrutura)',
+        'Protocolo HTTP','Arquitetura cliente x servidor','O que é um servidor Web','Cache'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Cloudflare Learning Center',k:'artigo',url:'https://www.cloudflare.com/pt-br/learning/',note:'Comece por aqui. Artigos curtos sobre DNS, HTTP, CDN e cache, em português.'},
+        {t:'Uma visão geral do HTTP — MDN',k:'docs',url:'https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Overview'},
+        {t:'How DNS Works',k:'artigo',url:'https://howdns.works/',note:'Quadrinho que explica DNS do começo ao fim. Em inglês.'},
+        {t:'Redes de Computadores e a Internet — Kurose & Ross',k:'livro',url:AMZ+'Redes+de+Computadores+e+a+Internet+Kurose',note:'Pra aprofundar. Pago, em português.'},
+      ]} ]},
+
+  { id:'seguranca', title:'Segurança', blurb:'Quem pode entrar, e como manter o resto do lado de fora.',
+    groups:[
+      { label:'Tópicos', items:['HTTP vs HTTPS','Como funciona um sistema de login','Autenticação e autorização','CORS','Cookies','Sessão','VPN','Firewall'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'OWASP Top 10',k:'docs',url:'https://owasp.org/www-project-top-ten/',note:'Comece por aqui. As falhas web mais comuns e como evitar. Em inglês.'},
+        {t:'OWASP: Authentication Cheat Sheet',k:'docs',url:'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html',note:'Login, senha e sessão do jeito certo. Em inglês.'},
+        {t:'Autenticação vs autorização — Auth0',k:'artigo',url:'https://auth0.com/docs/get-started/identity-fundamentals/authentication-and-authorization',note:'Em inglês.'},
+        {t:'CORS — MDN',k:'docs',url:'https://developer.mozilla.org/pt-BR/docs/Web/HTTP/CORS',note:'Veja também a página de Cookies do MDN.'},
+        {t:'O que é HTTPS — Cloudflare',k:'artigo',url:'https://www.cloudflare.com/pt-br/learning/ssl/what-is-https/',note:'VPN e firewall têm artigos curtos na mesma seção.'},
+      ]} ]},
+
+  { id:'apis', title:'APIs & Integrações', blurb:'Como sistemas conversam entre si.',
+    groups:[
+      { label:'Tópicos', items:['O que é uma API','APIs REST e RESTful','JSON – JavaScript Object Notation','Métodos HTTP (GET, POST, PUT, DELETE…)',
+        'HTTP – Códigos de status de resposta','HATEOAS (Hypermedia as the Engine of Application State)',
+        'Paginação, filtros e versionamento em APIs',{t:'gRPC',tag:'extra'},{t:'GraphQL',tag:'extra'}] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Práticas recomendadas de design de API web',k:'docs',url:ML+'/azure/architecture/best-practices/api-design',note:'Comece por aqui. REST, status, paginação, filtros e versionamento num lugar só.'},
+        {t:'Códigos de status HTTP — MDN',k:'docs',url:'https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status'},
+        {t:'Postman Academy',k:'curso',url:'https://academy.postman.com/',note:'Curso "API Fundamentals" com certificado. Em inglês.'},
+        {t:'Richardson Maturity Model — Martin Fowler',k:'artigo',url:'https://martinfowler.com/articles/richardsonMaturityModel.html',note:'Os níveis de REST até o HATEOAS. Em inglês.'},
+        {t:'Learn GraphQL',k:'docs',url:'https://graphql.org/learn/',note:'Para os extras. Em inglês.'},
+      ]} ]},
+
+  { id:'mvc', title:'Model-View-Controller (MVC)', blurb:'Organizar a aplicação em camadas com um framework.',
+    groups:[
+      { label:'Conceito', items:['Padrão MVC: Model, View e Controller'] },
+      { label:'Escolha um framework', choice:true, items:['NestJS','Laravel','Spring Boot','Flask','Symfony','Ruby on Rails','ASP.NET','Django'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Visão geral do ASP.NET Core MVC',k:'docs',url:ML+'/aspnet/core/mvc/overview',note:'Comece por aqui. Model, View e Controller na prática.'},
+        {t:'Tutorial: primeiro app MVC',k:'pratica',url:ML+'/aspnet/core/tutorials/first-mvc-app/start-mvc',note:'Um CRUD completo passo a passo.'},
+        {t:'Tutorial oficial do Django',k:'pratica',url:'https://docs.djangoproject.com/pt-br/stable/intro/tutorial01/',note:'Se escolher Django.'},
+        {t:'Spring Boot Guides',k:'pratica',url:'https://spring.io/guides',note:'Se escolher Spring. Em inglês.'},
+      ]} ]},
+
+  { id:'docker', title:'Docker', blurb:'Empacotar a aplicação pra rodar igual em qualquer lugar.',
+    groups:[
+      { label:'Tópicos', items:['Conceitos de containerização','Comandos básicos','Imagens / Volumes / Network','Dockerfile','Docker Compose'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Docker Curriculum',k:'artigo',url:'https://docker-curriculum.com/',note:'Comece por aqui. Do zero ao Compose. Em inglês.'},
+        {t:'Canal LINUXtips',k:'video',url:'https://www.youtube.com/@LINUXtips',note:'Referência em containers no Brasil.'},
+        {t:'Docker Docs: Get started',k:'docs',url:'https://docs.docker.com/get-started/',note:'Em inglês.'},
+        {t:'Introdução aos contêineres do Docker',k:'curso',url:ML+'/training/modules/intro-to-docker-containers/',note:'Módulo curto com exercício.'},
+      ]} ]},
+
+  { milestone:true, id:'junior', title:'Programadora Júnior', next:'Agora rumo a Pleno / Sênior' },
+
+  { id:'bancos-mais', title:'Mais sobre bancos de dados', blurb:'Quando o relacional não é a melhor escolha.',
+    groups:[
+      { label:'Bancos não relacionais', items:[ {t:'Document Store',children:['MongoDB']},'Key-Value Store','Graph Database','Search Engine' ] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'MongoDB University',k:'curso',url:'https://learn.mongodb.com/',note:'Comece por aqui. Cursos oficiais gratuitos com certificado. Em inglês.'},
+        {t:'NoSQL Essencial — Sadalage & Fowler',k:'livro',url:AMZ+'NoSQL+Essencial+Sadalage+Fowler',note:'Compara documento, chave-valor, grafo e colunar. Pago.'},
+        {t:'Redis University',k:'curso',url:'https://redis.io/tutorials/university/',note:'Key-Value Store na prática. Em inglês.'},
+        {t:'Neo4j GraphAcademy',k:'curso',url:'https://graphacademy.neo4j.com/',note:'Graph Database do zero. Em inglês.'},
+        {t:'Designing Data-Intensive Applications — Kleppmann',k:'livro',url:AMZ+'Designing+Data-Intensive+Applications+Kleppmann',note:'Pra aprofundar depois. Pago, em inglês.'},
+      ]} ]},
+
+  { id:'clean-code', title:'Clean Code Principles', blurb:'Código que outra pessoa (ou você daqui 6 meses) entende de primeira.', wide:true, cols:true,
+    groups:[
+      { label:'Princípios', items:['A regra do escoteiro','Mantenha classes, métodos e arquivos pequenos','Comente apenas o necessário',
+        'Use nomes significativos','Formatação e estilo de código','Evite abstrações precipitadas e refatore sempre'] },
+      { label:'Mais princípios', items:['Minimize a complexidade ciclomática','Prefira exceções a retorno de códigos de erro','Seja consistente',
+        'O que são testes de unidade','Evite passar booleanos e nulos','O que são funções puras',
+        {t:'Código Limpo — Robert C. Martin',k:'livro'}] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Código Limpo — Robert C. Martin',k:'livro',url:AMZ+'C%C3%B3digo+Limpo+Robert+Martin',note:'Comece por aqui. O livro base desta parada. Pago.'},
+        {t:'clean-code-dotnet',k:'artigo',url:'https://github.com/thangchung/clean-code-dotnet',note:'Os princípios aplicados em C#. Em inglês.'},
+        {t:'clean-code-javascript (PT-BR)',k:'artigo',url:'https://github.com/felipe-augusto/clean-code-javascript',note:'Resumo traduzido com exemplos curtos.'},
+      ]} ]},
+
+  { id:'oo-avancada', title:'Orientação a Objetos Avançada', blurb:'Os princípios que deixam o design flexível.', wide:true, cols:true,
+    groups:[
+      { label:'Princípios SOLID', items:['Single Responsibility Principle','Open Closed Principle','Liskov Substitution Principle',
+        'Interface Segregation Principle','Dependency Inversion Principle'] },
+      { label:'Object Calisthenics', items:['Apenas um nível de indentação','Nunca usar ELSE','Envolva todos os tipos primitivos','Coleções de primeira classe',
+        'Apenas um ponto por linha','Não abrevie','Classes pequenas – máx. 50 linhas','Apenas 2 variáveis por instância','Sem Getters / Setters'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Orientação a Objetos e SOLID para Ninjas — Aniche',k:'livro',url:'https://www.casadocodigo.com.br/pages/sumario-oo-solid',note:'Comece por aqui. SOLID bem prático, em português. Pago.'},
+        {t:'Princípios de arquitetura (SOLID)',k:'docs',url:ML+'/dotnet/architecture/modern-web-apps-azure/architectural-principles',note:'No contexto de .NET.'},
+        {t:'SOLID: The First 5 Principles',k:'artigo',url:'https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design',note:'Um exemplo por princípio. Em inglês.'},
+        {t:'Object Calisthenics — William Durand',k:'artigo',url:'https://williamdurand.fr/2013/06/03/object-calisthenics/',note:'As 9 regras uma a uma. Em inglês.'},
+      ]} ]},
+
+  { id:'qualidade', title:'Princípios de qualidade de Código', blurb:'Três siglas pra lembrar sempre.',
+    groups:[
+      { label:'Princípios', items:["DRY – Don't repeat yourself",'KISS – Keep it simple, stupid',"YAGNI – You ain't gonna need it",
+        {t:'O Programador Pragmático — Hunt & Thomas',k:'livro'}] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'O Programador Pragmático',k:'livro',url:AMZ+'O+Programador+Pragm%C3%A1tico',note:'Comece por aqui. Onde o DRY nasceu. Pago, em português.'},
+        {t:'Yagni — Martin Fowler',k:'artigo',url:'https://martinfowler.com/bliki/Yagni.html',note:'Em inglês.'},
+      ]} ]},
+
+  { id:'testes', title:'Testes Automatizados', blurb:'A pirâmide de testes: muita base, pouco topo.',
+    groups:[
+      { label:'Pirâmide de testes', items:['Testes unitários – 80%','Testes de integração – 15%','Testes funcionais – 5%'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'The Practical Test Pyramid',k:'artigo',url:'https://martinfowler.com/articles/practical-test-pyramid.html',note:'Comece por aqui. A pirâmide com exemplos de cada camada. Em inglês.'},
+        {t:'Teste de unidade em C# com xUnit',k:'pratica',url:ML+'/dotnet/core/testing/unit-testing-csharp-with-xunit'},
+        {t:'Testes de integração no ASP.NET Core',k:'docs',url:ML+'/aspnet/core/test/integration-tests'},
+        {t:'Effective Software Testing — Aniche',k:'livro',url:AMZ+'Effective+Software+Testing+Aniche',note:'Pra aprofundar. Pago, em inglês.'},
+      ]} ]},
+
+  { id:'design-patterns', title:'Design Patterns', blurb:'Soluções clássicas pra problemas que se repetem.', wide:true, cols:true,
+    groups:[
+      { label:'Criacionais', items:['Singleton','Simple Factory','Factory Method','Abstract Factory','Builder','Prototype'] },
+      { label:'Estruturais', items:['Adapter','Bridge','Composite','Decorator','Facade','Flyweight','Proxy'] },
+      { label:'Comportamentais', items:['Observer','State','Strategy','Chain of Responsibility','Command','Iterator','Mediator','Memento','Visitor','Template Method'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Padrões de Projeto — Refactoring Guru',k:'artigo',url:'https://refactoring.guru/pt-br/design-patterns',note:'Comece por aqui. Todos os padrões, com desenhos e código em C#.'},
+        {t:'Use a Cabeça! Padrões de Projetos',k:'livro',url:AMZ+'Use+a+Cabe%C3%A7a+Padr%C3%B5es+de+Projetos',note:'O livro mais fácil de padrões. Pago.'},
+        {t:'Design Patterns — Christopher Okhravi',k:'video',url:'https://www.youtube.com/@ChristopherOkhravi',note:'Um vídeo por padrão. Em inglês.'},
+      ]} ]},
+
+  { id:'refactoring', title:'Técnicas de Refactoring', blurb:'Melhorar o código sem mudar o que ele faz.',
+    groups:[
+      { label:'Tópicos', items:['O que é débito técnico','Code Smells','Métodos de Composição','Organização de Dados','Expressões condicionais','Simplificar chamadas de métodos',
+        {t:'Refatoração — Martin Fowler',k:'livro'}] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Refatoração e Code Smells — Refactoring Guru',k:'artigo',url:'https://refactoring.guru/pt-br/refactoring',note:'Comece por aqui. Todas as técnicas, em português.'},
+        {t:'Refatoração — Martin Fowler',k:'livro',url:AMZ+'Refatora%C3%A7%C3%A3o+Martin+Fowler',note:'O catálogo original de refatorações. Pago.'},
+        {t:'Technical Debt — Martin Fowler',k:'artigo',url:'https://martinfowler.com/bliki/TechnicalDebt.html',note:'Em inglês.'},
+      ]} ]},
+
+  { id:'performance', title:'Otimização e Performance', blurb:'Deixar rápido o que precisa ser rápido.',
+    groups:[
+      { label:'Tópicos', items:['Cache Aside Pattern','Jobs Assíncronos','Concorrência e Paralelismo','Otimização e performance de SQL','CDN'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'Padrão Cache-Aside',k:'docs',url:ML+'/azure/architecture/patterns/cache-aside',note:'Comece por aqui.'},
+        {t:'Use The Index, Luke',k:'livro',url:'https://use-the-index-luke.com/',note:'Livro gratuito sobre índices e performance de SQL. Em inglês.'},
+        {t:'Programação assíncrona com async e await',k:'docs',url:ML+'/dotnet/csharp/asynchronous-programming/'},
+        {t:'Tarefas em segundo plano com serviços hospedados',k:'docs',url:ML+'/aspnet/core/fundamentals/host/hosted-services'},
+        {t:'System Design Primer',k:'artigo',url:'https://github.com/donnemartin/system-design-primer',note:'Cache, CDN, filas e escalabilidade. Em inglês.'},
+      ]} ]},
+
+  { id:'cloud', title:'Básico das Cloud Providers', blurb:'O mesmo serviço com nomes diferentes em cada nuvem (AWS · Azure · Google Cloud).', wide:true, cols:true,
+    groups:[
+      { label:'Computação e armazenamento', items:[
+        {t:'Virtual Machines',note:'EC2 · Virtual Machines · Compute Engine'},
+        {t:'Kubernetes',note:'EKS · AKS · GKE'},
+        {t:'Functions as a Service',note:'Lambda · Azure Functions · Cloud Functions'},
+        {t:'Object Storage',note:'S3 · Blob Storage · Cloud Storage'},
+        {t:'Block Storage',note:'EBS · Managed Disks · Persistent Disk'},
+        {t:'File Storage',note:'EFS · Azure Files · Filestore'},
+        {t:'Networking',note:'VPC · Virtual Network · VPC'},
+        {t:'DNS',note:'Route 53 · Azure DNS · Cloud DNS'} ]},
+      { label:'Rede e dados', items:[
+        {t:'Load Balancing',note:'Elastic Load Balancing · Load Balancer · Cloud Load Balancing'},
+        {t:'Cloud Firewall',note:'WAF · Web Application Firewall · Cloud Armor'},
+        {t:'Banco relacional',note:'RDS · SQL Database · Cloud SQL'},
+        {t:'NoSQL',note:'DynamoDB · Cosmos DB · Firestore'},
+        {t:'Data Warehouse',note:'Redshift · Synapse Analytics · BigQuery'},
+        {t:'Big Data',note:'EMR · HDInsight · Dataproc'},
+        {t:'Streaming',note:'Kinesis · Stream Analytics · Dataflow'},
+        {t:'AutoML',note:'SageMaker · Azure Machine Learning · Vertex AI'} ]},
+      { label:'Integração e operação', items:[
+        {t:'Data Catalog / ETL',note:'Glue · Data Factory · Data Fusion'},
+        {t:'Eventos',note:'EventBridge · Event Grid · Eventarc'},
+        {t:'Fila de mensagens',note:'SQS · Service Bus · Pub/Sub'},
+        {t:'Notificações',note:'SNS · Notification Hubs · Firebase Cloud Messaging'},
+        {t:'Monitoramento',note:'CloudWatch · Azure Monitor · Cloud Monitoring'},
+        {t:'Infraestrutura como código',note:'CloudFormation · Resource Manager · Deployment Manager'},
+        {t:'Identidade',note:'IAM · Entra ID · Cloud IAM'},
+        {t:'Gerenciamento de chaves',note:'KMS · Key Vault · Cloud KMS'} ]},
+      { label:'Certificações recomendadas', items:[
+        {t:'AWS Certified Cloud Practitioner (Foundational)',k:'cert'},
+        {t:'Microsoft Certified: Azure Fundamentals (AZ-900)',k:'cert'} ]},
+      { label:'Onde estudar', ref:true, items:[
+        {t:'AWS Cloud Practitioner Essentials',k:'curso',url:'https://skillbuilder.aws/',note:'Comece por aqui. Curso oficial gratuito; busque o nome no Skill Builder.'},
+        {t:'Certificação AWS Cloud Practitioner',k:'docs',url:'https://aws.amazon.com/pt/certification/certified-cloud-practitioner/',note:'Guia do exame e questões de exemplo.'},
+        {t:'Azure Fundamentals (AZ-900)',k:'curso',url:ML+'/credentials/certifications/azure-fundamentals/',note:'Trilha oficial gratuita, com avaliação prática.'},
+        {t:'Serviços equivalentes AWS × Azure × GCP',k:'docs',url:'https://cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison',note:'A tabela completa. Em inglês.'},
+      ]} ]},
+
+  { id:'cicd', title:'Pipelines de CI/CD', blurb:'Build, teste e deploy automáticos a cada push.',
+    groups:[
+      { label:'Escolha uma ferramenta', choice:true, items:['GitHub Actions','GitLab CI','Azure DevOps Pipelines','Jenkins'] },
+      { label:'Onde estudar', ref:true, items:[
+        {t:'CI vs. entrega contínua vs. implantação contínua',k:'artigo',url:'https://www.atlassian.com/br/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment',note:'Comece por aqui. Os conceitos explicados de forma simples.'},
+        {t:'Documentação do GitHub Actions',k:'docs',url:'https://docs.github.com/pt/actions',note:'Tem quickstart pro primeiro pipeline.'},
+        {t:'Azure Pipelines',k:'docs',url:ML+'/azure/devops/pipelines/'},
+        {t:'GitLab CI/CD quick start',k:'docs',url:'https://docs.gitlab.com/ci/quick_start/',note:'Se escolher GitLab CI. Em inglês.'},
+        {t:'Jenkins tutorials',k:'docs',url:'https://www.jenkins.io/doc/tutorials/',note:'Se escolher Jenkins. Em inglês.'},
+      ]} ]},
+];
+
+return {TOOLS,STOPS};})();
 const TABS={
   ms:{...MS,h1:'Roadmap <em>Microsoft Learn</em>',tools:'Ferramentas do <em>Learn</em>',
     lede:'Do AZ-900 até a AI-200 e o DevOps. Clique no nome de cada item para abrir a página no Learn e marque a caixinha quando terminar. A flor vai andando pela estrada.',
@@ -721,13 +998,17 @@ const TABS={
     lede:'Do primeiro container até a CKAD, e depois Kubernetes gerenciado e operação. Clique no nome de cada item para abrir a página e marque a caixinha quando terminar. A flor vai andando pela estrada.',
     before:'Rumo à CKAD',after:'Depois da CKAD',finish:'Dev Kubernetes completa!',key:'roadmap-k8s-luisa-v1',
     foot:'As provas KCNA, CKAD, CKA e CKS são da Linux Foundation/CNCF e acompanham a versão atual do Kubernetes. Antes de agendar, confira na página da prova qual versão cai. A Linux Foundation costuma ter promoções de certificação, então vale esperar uma.'},
+  dev:{...DEV,h1:'Roadmap <em>Programação</em>',tools:'Pra estudar o <em>roadmap todo</em>',
+    lede:'Do básico de computador até CI/CD, passando por Júnior e chegando em Pleno / Sênior. Marque os tópicos que já estudou e escolha suas ferramentas. A flor vai andando pela estrada.',
+    before:'Rumo a Júnior',after:'Rumo a Pleno / Sênior',finish:'Programadora completa!',key:'roadmap-dev-luisa-v1',
+    foot:'Os materiais de "Onde estudar" não contam no progresso: só os tópicos e as escolhas contam. Livros com link pra Amazon são pagos e o resto é gratuito.'},
 };
-const TITLES={ms:'Roadmap Microsoft Learn',aws:'Roadmap AWS',k8s:'Roadmap Docker & Kubernetes'};
-let TAB='ms', STOPS, TOOLS, KEY, state={checks:{}};
+const TITLES={ms:'Roadmap Microsoft Learn',aws:'Roadmap AWS',k8s:'Roadmap Docker & Kubernetes',dev:'Roadmap Programação'};
+let TAB='ms', STOPS, TOOLS, KEY, state={checks:{},choices:{}};
 try{ const t=localStorage.getItem('roadmap-tab-luisa'); if(TABS[t]) TAB=t; }catch(e){}
 function loadTab(t){
-  TAB=t; const c=TABS[t]; STOPS=c.STOPS; TOOLS=c.TOOLS; KEY=c.key; state={checks:{}};
-  try{ const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.checks) state=s; }catch(e){}
+  TAB=t; const c=TABS[t]; STOPS=c.STOPS; TOOLS=c.TOOLS; KEY=c.key; state={checks:{},choices:{}};
+  try{ const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.checks) state={choices:{},...s}; }catch(e){}
   try{ localStorage.setItem('roadmap-tab-luisa',t); }catch(e){}
   document.getElementById('h1').innerHTML=c.h1; document.getElementById('g-title').innerHTML=c.tools;
   document.getElementById('lede').textContent=c.lede; document.getElementById('foot').textContent=c.foot;
@@ -740,14 +1021,35 @@ const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e)
 const slug=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pad=n=>String(n).padStart(2,'0');
-const KIND={trilha:'Trilha',modulo:'Módulo',docs:'Docs',video:'Vídeo',pratica:'Prática',cert:'Cert'};
+const KIND={trilha:'Trilha',modulo:'Módulo',docs:'Docs',video:'Vídeo',pratica:'Prática',cert:'Cert',curso:'Curso',livro:'Livro',artigo:'Artigo'};
+const norm=it=>typeof it==='string'?{t:it}:it;
 
-function keysOf(s){ const ks=[]; (s.groups||[]).forEach(g=>g.items.forEach(it=>ks.push(s.id+'/'+slug(it.t)))); return ks; }
+/* Chaves do progresso: tópicos (com subtópicos) e escolhas; grupos ref:true não contam */
+function keysOf(s){
+  const ks=[], walk=items=>items.map(norm).forEach(it=>{ ks.push(s.id+'/'+slug(it.t)); if(it.children) walk(it.children); });
+  (s.groups||[]).forEach(g=>{ if(g.ref) return; if(g.choice) ks.push('choice:'+s.id+'/'+slug(g.label)); else walk(g.items); });
+  return ks;
+}
+const isDone=k=>k.startsWith('choice:')?!!state.choices[k.slice(7)]:!!state.checks[k];
 
-function itemHTML(s,it){
-  const k=s.id+'/'+slug(it.t), id='c-'+k.replace(/\//g,'--');
+function txtHTML(it){
+  const name=it.url?`<a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.t)}</a>`:`<span class="label">${esc(it.t)}</span>`;
+  const badge=it.k?`<span class="kind ${it.k}">${KIND[it.k]}</span>`:it.tag?`<span class="kind">${esc(it.tag)}</span>`:'';
+  return `<span class="txt">${name}${badge}${it.note?`<span class="note">${esc(it.note)}</span>`:''}</span>`;
+}
+function itemHTML(s,raw){
+  const it=norm(raw), k=s.id+'/'+slug(it.t), id='c-'+k.replace(/\//g,'--');
   return `<li><label class="item" for="${id}"><input type="checkbox" id="${id}" data-k="${k}"><span class="box" aria-hidden="true"></span>
-    <span class="txt"><a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.t)}</a><span class="kind ${it.k}">${KIND[it.k]}</span>${it.note?`<span class="note">${esc(it.note)}</span>`:''}</span></label></li>`;
+    ${txtHTML(it)}</label>${it.children?`<ul class="items sub">${it.children.map(c=>itemHTML(s,c)).join('')}</ul>`:''}</li>`;
+}
+function groupHTML(s,g){
+  if(g.choice){
+    const ck=s.id+'/'+slug(g.label);
+    return `<div class="group"><p class="glabel">${esc(g.label)} · escolha uma</p><div class="chips" role="radiogroup" aria-label="${esc(g.label)}">${
+      g.items.map(o=>`<button type="button" class="chip" role="radio" aria-checked="false" data-ck="${ck}" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div></div>`;
+  }
+  const items=g.ref?g.items.map(it=>`<li><div class="item ref"><span class="ref-dot" aria-hidden="true"></span>${txtHTML(it)}</div></li>`).join(''):g.items.map(it=>itemHTML(s,it)).join('');
+  return `<div class="group"><p class="glabel">${esc(g.label)}</p><ul class="items">${items}</ul></div>`;
 }
 function certHTML(c){
   if(!c) return '';
@@ -765,7 +1067,7 @@ function render(){
       <article class="card"><span class="ribbon">Concluída</span>
         <div class="card-head"><p class="eyebrow">Parada ${pad(n)}</p><span class="count" data-count></span><h2>${esc(s.title)}</h2>
           ${s.blurb?`<p class="blurb">${esc(s.blurb)}</p>`:''}<div class="bar"><i data-bar></i></div></div>
-        <div class="groups${s.cols?' cols':''}">${s.groups.map(g=>`<div class="group"><p class="glabel">${esc(g.label)}</p><ul class="items">${g.items.map(it=>itemHTML(s,it)).join('')}</ul></div>`).join('')}</div>
+        <div class="groups${s.cols?' cols':''}">${s.groups.map(g=>groupHTML(s,g)).join('')}</div>
         ${certHTML(s.cert)}
       </article></li>`;
   }).join('');
@@ -780,10 +1082,11 @@ function render(){
 function sync(){
   let total=0,done=0,currentSet=false,allPrev=true;
   document.querySelectorAll('input[data-k]').forEach(el=>el.checked=!!state.checks[el.dataset.k]);
+  document.querySelectorAll('.chip').forEach(el=>el.setAttribute('aria-checked',state.choices[el.dataset.ck]===el.dataset.v));
   STOPS.forEach(s=>{
     const li=document.getElementById('s-'+s.id);
     if(s.milestone){ li.classList.toggle('got',allPrev); li.querySelector('[data-ms]').textContent=allPrev?`Floresceu! ${s.next}`:'Complete as paradas acima pra florescer'; return; }
-    const ks=keysOf(s), d=ks.filter(k=>state.checks[k]).length, complete=d===ks.length;
+    const ks=keysOf(s), d=ks.filter(isDone).length, complete=d===ks.length;
     total+=ks.length; done+=d; if(!complete) allPrev=false;
     li.classList.remove('current'); li.classList.toggle('done',complete);
     document.querySelector(`[data-go="${s.id}"]`).classList.toggle('done',complete);
@@ -825,6 +1128,14 @@ document.getElementById('stops').addEventListener('change',e=>{
   if(el.checked) state.checks[el.dataset.k]=true; else delete state.checks[el.dataset.k];
   save(); sync();
   if(el.checked) burst(el.nextElementSibling,7);
+  if(!was&&li.classList.contains('done')) burst(li.querySelector('.pin'),22);
+});
+document.getElementById('stops').addEventListener('click',e=>{
+  const el=e.target.closest('.chip'); if(!el) return;
+  const li=el.closest('.stop'), was=li.classList.contains('done'), on=state.choices[el.dataset.ck]!==el.dataset.v;
+  if(on) state.choices[el.dataset.ck]=el.dataset.v; else delete state.choices[el.dataset.ck];
+  save(); sync();
+  if(on) burst(el,7);
   if(!was&&li.classList.contains('done')) burst(li.querySelector('.pin'),22);
 });
 document.getElementById('map').addEventListener('click',e=>{

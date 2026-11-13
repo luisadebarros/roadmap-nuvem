@@ -4,16 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Interactive cloud-study roadmap (UI text in Brazilian Portuguese) with three tabs: **Microsoft Learn**, **AWS** and **Docker & Kubernetes**. Each item links to an official study page and has a checkbox; progress is saved in `localStorage`, separately per tab.
+Interactive cloud-study roadmap (UI text in Brazilian Portuguese) with four tabs: **Microsoft Learn**, **AWS**, **Docker & Kubernetes** and **Programação**. Each item links to an official study page and has a checkbox; progress is saved in `localStorage`, separately per tab.
 
 The whole app is a single file, `index.html`: plain HTML/CSS/JS with no dependencies, build step, linter or tests. To run it, open `index.html` in a browser.
 
 ## Architecture of `index.html`
 
-- **Content**: one IIFE per tab (`MS`, `AWS`, `K8S`), each returning `{TOOLS, STOPS}`. Most edits happen here.
+- **Content**: one IIFE per tab (`MS`, `AWS`, `K8S`, `DEV`), each returning `{TOOLS, STOPS}`. Most edits happen here.
   - `TOOLS`: `{t, d, url}`. These are the links in the "Ferramentas" section.
   - `STOPS`: the ordered route. A normal stop is `{id, title, blurb?, groups:[{label, items:[...]}], cert?, cols?, wide?}`. A stop with `milestone: true` (plus `title`, `cert`, `next`) is the certification "bloom". It splits the map into its "before" and "after" sections and only blooms once every earlier stop is complete.
-  - Item: `{t, k, url, note?}` where `k` is one of `trilha | modulo | docs | video | pratica | cert` (labels in `KIND`).
+  - Item: `{t, k, url, note?}` where `k` is a key of `KIND` (`trilha | modulo | docs | video | pratica | cert | curso | livro | artigo`). `url` and `k` are optional (a plain topic can be just a string), and items can nest via `children` and carry a `tag` badge.
+  - Group flags: `choice: true` renders the items as "pick one" chips, stored in `state.choices` and counted as one key. `ref: true` renders links without checkboxes that don't count toward progress (the `DEV` tab's "Onde estudar").
+  - Keep the existing visual design (lily palette, Instrument Serif/DM Sans) when adding content. The user asked not to change it.
   - URL prefixes are local constants in each block, e.g. `L` (MS Learn pt-br), `D` (AWS docs pt_br), `SB` (Skill Builder), `DK` (Docker docs), `K` (kubernetes.io docs).
 - **`TABS`**: per-tab config that spreads in the content block plus the header and footer copy and the `localStorage` key (`roadmap-mslearn-luisa-v1`, `roadmap-aws-luisa-v1`, `roadmap-k8s-luisa-v1`). Page titles live in `TITLES`. The active tab is stored under `roadmap-tab-luisa`.
 - **Adding a tab** takes a content IIFE, a `TABS` entry, a `TITLES` entry and a `data-tab` button in the `.tabs` markup. Arrow-key navigation cycles through `Object.keys(TABS)`.
